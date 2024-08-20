@@ -61,7 +61,7 @@ public class LobbyDataSlot : MonoBehaviour
         else
         {
             GameManager.Instance.Data.CurrentPlayerData = playerData;
-            SceneLoadManager.Instance.LoadScene(SceneName.Stage);
+            LoadingManager.Instance.CallStartLoading(SceneName.Stage);
         }
     }
 

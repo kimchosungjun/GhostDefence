@@ -18,7 +18,7 @@ public class StageUIController : MonoBehaviour
     private void Start()
     {
         if (backButton != null)
-            backButton.onClick.AddListener(() => { SceneLoadManager.Instance.LoadScene(SceneName.Lobby); 
+            backButton.onClick.AddListener(() => { LoadingManager.Instance.CallStartLoading(SceneName.Lobby); 
                 GameManager.Instance.Data.CurrentPlayerData = null; } );
         playerData = GameManager.Instance.Data.CurrentPlayerData;
 
@@ -30,7 +30,7 @@ public class StageUIController : MonoBehaviour
                 stageDataSlots[idx].Setup(true);
             else
                 stageDataSlots[idx].Setup(false);
-            stageDataSlots[idx].StageButton.onClick.AddListener(() => { SetStageData(idx); SceneLoadManager.Instance.LoadScene(SceneName.Game); } );
+            stageDataSlots[idx].StageButton.onClick.AddListener(() => { SetStageData(idx); LoadingManager.Instance.CallStartLoading(SceneName.Game); } );
         }
     }
 

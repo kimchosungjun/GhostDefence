@@ -10,10 +10,16 @@ public class GameSceneController : BaseSceneController
     StageData stageData;
     SummonData summonData;
     public StageData Data { get => stageData; }
-
+    [SerializeField] GameObject[] nodes;
     private void Awake()
     {
         camBounds.Init();
+        InitScene();
+
+        if (stageData.StageID == 0)
+        {
+            GameObject nodeObject = Instantiate(nodes[1]);
+        }
     }
 
     bool once = true;
@@ -25,7 +31,7 @@ public class GameSceneController : BaseSceneController
             once = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.X) )
+        if (Input.GetKeyDown(KeyCode.X))
         {
             poolManager.SummonEnemy(0);
         }
