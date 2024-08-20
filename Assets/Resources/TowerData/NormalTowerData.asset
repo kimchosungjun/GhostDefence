@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d50ab9cac3dff4ea818db813e012f1, type: 3}
+  m_Name: NormalTowerData
+  m_EditorClassIdentifier: 
+  attackType: 0
+  attackFrequency: 0.2
+  attackValue: 5
+  costMoney: 10

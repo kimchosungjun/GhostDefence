@@ -1,0 +1,28 @@
+{
+  "summonEnemyData": [
+    {
+      "stageID": 0,
+      "enemyID": [
+        "0"
+      ],
+      "summonStartTime": [
+        "2"
+      ],
+      "summonCycle": [
+        "2"
+      ]
+    },
+    {
+      "stageID": 1,
+      "enemyID": [
+        "0"
+      ],
+      "summonStartTime": [
+        "1"
+      ],
+      "summonCycle": [
+        "1.5"
+      ]
+    }
+  ]
+}
