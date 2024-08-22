@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridManager
 {
+    const int gridSize = 2;
+    
     AStarPathFinder pathFinder = new AStarPathFinder();
     public AStarPathFinder PathFinder { get { return pathFinder; } }
 
@@ -23,8 +25,8 @@ public class GridManager
     {
         int _startXPos = 0;
         int _startYPos = 0;
-        int _endXPos = _stageData.XSize;
-        int _endYPos = _stageData.YSize;
+        int _endXPos = _stageData.XSize/ gridSize;
+        int _endYPos = _stageData.YSize/ gridSize;
 
         StartCoordinate = new Vector2Int(_startXPos, _startYPos);
         EndCoordinate = new Vector2Int(_endXPos, _endYPos);

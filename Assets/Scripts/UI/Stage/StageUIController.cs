@@ -29,18 +29,7 @@ public class StageUIController : MonoBehaviour
             if (_clearStage < idx)
                 stageDataSlots[idx].Setup(true);
             else
-                stageDataSlots[idx].Setup(false);
-            stageDataSlots[idx].StageButton.onClick.AddListener(() => { SetStageData(idx); LoadingManager.Instance.CallStartLoading(SceneName.Game); } );
+                stageDataSlots[idx].Setup(false);         
         }
-    }
-
-    public void SetStageData(int _idx)
-    {
-        if (GameManager.Instance.Data.GetStageData(_idx) == null)
-        {
-            Debug.Log("없습니다.");
-            return;
-        }
-        GameManager.Instance.Data.CurrentStageData = GameManager.Instance.Data.GetStageData(_idx);
     }
 }

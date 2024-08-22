@@ -210,10 +210,10 @@ public class LoadingManager : MonoBehaviour
         GameObject _createMap = Instantiate(_loadMap);
         _createMap.SetActive(false); 
         DontDestroyOnLoad(_createMap);
-
-        yield return halfSecond; // 씬이 완전히 로드되도록 0.5초 대기 (한 프레임으로도 충분할듯??)
-        
         asyncOperation.allowSceneActivation = true;
+
+        yield return null; // 씬이 완전히 로드되도록 0.5초 대기 (한 프레임으로도 충분할듯??)
+        
         Scene _newScene = SceneManager.GetActiveScene();
         SceneManager.MoveGameObjectToScene(_createMap, _newScene);
         _createMap.SetActive(true);

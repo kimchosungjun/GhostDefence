@@ -341,9 +341,6 @@ MonoBehaviour:
   currentStage: 0
   poolManager: {fileID: 2094176495}
   camBounds: {fileID: 2079376312}
-  nodes:
-  - {fileID: 6068677526881738825, guid: bc1669e6d80a28f408323fdea9bc76a2, type: 3}
-  - {fileID: 1499499978378225456, guid: aaa33f61207cd804b89927270586a774, type: 3}
 --- !u!4 &1405354726
 Transform:
   m_ObjectHideFlags: 0

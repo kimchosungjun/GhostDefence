@@ -1208,6 +1208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 4
   stageButton: {fileID: 361333146}
   stageObject:
   - {fileID: 717102219}
@@ -2097,6 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 5
   stageButton: {fileID: 825630177}
   stageObject:
   - {fileID: 1296976091}
@@ -2237,6 +2239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 2
   stageButton: {fileID: 898729840}
   stageObject:
   - {fileID: 124363818}
@@ -2537,6 +2540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 1
   stageButton: {fileID: 1138316502}
   stageObject:
   - {fileID: 157022502}
@@ -2812,6 +2816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 3
   stageButton: {fileID: 1338305975}
   stageObject:
   - {fileID: 356835795}
@@ -3154,6 +3159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d4ad92435803044bbc2465dd8ffadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageIndex: 0
   stageButton: {fileID: 1499147239}
   stageObject:
   - {fileID: 180547727}

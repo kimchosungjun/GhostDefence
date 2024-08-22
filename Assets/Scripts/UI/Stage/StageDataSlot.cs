@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class StageDataSlot : MonoBehaviour
 {
     bool isLock = false;
+    [SerializeField, Tooltip("StageID")] int stageIndex;
     [SerializeField] Button stageButton;
-    public Button StageButton { get { return stageButton; } }
     [SerializeField, Tooltip("0:Text, 1:LockImage")]GameObject[] stageObject;
 
     private void Awake()
     {
         if (stageButton == null)
             stageButton = GetComponent<Button>();
+        stageButton.onClick.AddListener(() => { SetStageData(); LoadingManager.Instance.CallStartLoading(SceneName.Game); });
     }
 
     public void Setup(bool _isLock)
@@ -38,5 +39,16 @@ public class StageDataSlot : MonoBehaviour
         if (!isLock)
             return;
         stageButton.interactable = false;
+    }
+
+    public void SetStageData()
+    {
+        if (GameManager.Instance.Data.GetStageData(stageIndex) == null)
+        {
+            Debug.Log("없습니다.");
+            return;
+        }
+        GameManager.Instance.Data.CurrentStageData = GameManager.Instance.Data.GetStageData(stageIndex);
+        GameManager.Grid.LoadStartEndPoint(GameManager.Instance.Data.CurrentStageData);
     }
 }

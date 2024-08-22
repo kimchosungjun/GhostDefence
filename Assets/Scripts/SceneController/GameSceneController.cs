@@ -17,8 +17,6 @@ public class GameSceneController : BaseSceneController
         gridManager = GameManager.Grid;
         camBounds.Init();
         InitScene();
-
-
     }
 
     bool once = true;
@@ -37,7 +35,10 @@ public class GameSceneController : BaseSceneController
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            List<NodeData> nodePath = gridManager.PathFinder.GetPath(gridManager.GetNodeData(gridManager.StartCoordinate), gridManager.GetNodeData(gridManager.EndCoordinate));
+            //gridManager.GetNodeData(gridManager.StartCoordinate);
+            //gridManager.GetNodeData(gridManager.EndCoordinate);
+   
+            List <NodeData> nodePath = gridManager.PathFinder.GetPath(gridManager.GetNodeData(gridManager.StartCoordinate), gridManager.GetNodeData(gridManager.EndCoordinate));
             DebugPath(nodePath);
         }
     }
