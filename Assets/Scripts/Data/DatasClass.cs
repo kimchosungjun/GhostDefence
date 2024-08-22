@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using TileEnums;
 public class DatasClass { }
 
 #region Stage Data
@@ -52,24 +52,47 @@ public class EnemyData
 [Serializable] 
 public class NodeData
 {
+    #region Placeable
     public bool canPlace;
+    public bool isAccessible;
+    public TileKind tileKind;
+    #endregion
 
+    #region Cooridinate
     public int xPos;
     public int zPos;
     public Vector3 coordinates;
+    #endregion
 
+    #region PathFinder
+    public int multiplyCost;
     public int gCost; 
     public int hCost; 
     public int fCost => gCost + hCost; 
+    public NodeData parentNode;
+    #endregion
 
-    public NodeData parentNode; 
-
-    public NodeData(int _xPos, int _yPos ,int _zPos)
+    // »ý¼ºÀÚ
+    public NodeData(int _xPos, int _yPos ,int _zPos, bool _isAccessible, TileKind _tileKind)
     {
         // Recieve Parameter 
         xPos = _xPos;
         zPos = _zPos;
         coordinates = new Vector3(_xPos, _yPos, _zPos);
+        isAccessible = _isAccessible;
+        tileKind = _tileKind;
+        switch (_tileKind)
+        {
+            case TileKind.Grass:
+                multiplyCost = 1;
+                break;
+            case TileKind.Stone:
+                multiplyCost = 2;
+                break;
+            default:
+                multiplyCost = 0;
+                break;
+        }
 
         // Not Receive Parameter
         gCost = 0;
@@ -77,6 +100,18 @@ public class NodeData
         parentNode = null;
         canPlace = true;
     }
+
+    #region Function
+    public bool CanAccessTile()
+    {
+        if (!isAccessible)
+            return false;
+        if (canPlace)
+            return true;
+        return false;
+    }
+
+    #endregion
 }
 #endregion
 

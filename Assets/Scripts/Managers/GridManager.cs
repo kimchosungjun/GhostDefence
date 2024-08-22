@@ -11,7 +11,7 @@ public class GridManager
     public Vector2Int StartCoordinate { get; set; }
     public Vector2Int EndCoordinate { get; set; }
 
-    // 게임 씬 종료 시 호출 or 스테이지 씬에서 한번 호출
+    // 스테이지 씬에서 게임씬으로 로드하는 순간에 한번 호출
     public void ClearMap()
     {
         if (gridMap.Count > 0)
@@ -30,7 +30,7 @@ public class GridManager
         EndCoordinate = new Vector2Int(_endXPos, _endYPos);
     }        
 
-    // Node Tile Awake에서 호출 
+    // Node Tile에서 호출 
     public void AddMap(NodeData _nodeData)
     {
         Vector2Int _coordinate = new Vector2Int(_nodeData.xPos, _nodeData.zPos);

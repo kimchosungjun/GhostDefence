@@ -35,11 +35,8 @@ public enum TowerAttackType
     Explosion
 }
 
-public enum TileType
-{
-    StartEndTile,
-    NormalTile
-}
+
+
 
 public enum GameStageType
 {
@@ -59,5 +56,21 @@ namespace UIEnums
         Setting,
         Exit,
         SelectIcon
+    }
+}
+
+namespace TileEnums
+{
+    public enum TileFeatureType
+    {
+        Inaccessible,
+        Accessible
+    }
+
+    public enum TileKind
+    {
+        Grass,
+        Stone,
+        Water
     }
 }

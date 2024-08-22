@@ -48,20 +48,22 @@ public class LoadingManager : MonoBehaviour
         startLoadingAction += StartIndicator;
     }
 
+    #region Call when you change scene
+    // 씬을 변경할 때 호출 (외부에서 호출)
     public void CallStartLoading(SceneName sceneName)
     {
         FadeOut(sceneName,startLoadingAction,0.5f);
     }
 
+    // 씬 동기화가 완료되면 호출 (내부에서 호출)
     public void EndLoading(UnityAction action =null, float delayTime=0f)
     {
         loadingSlider.gameObject.SetActive(false);
         FadeIn(action, delayTime);
-        asyncOperation.allowSceneActivation = true;
         asyncOperation = null;
         EndIndicator();
     }
-
+    #endregion
 
     #region Fade
     // 페이드 인 : 밝아짐
@@ -138,46 +140,6 @@ public class LoadingManager : MonoBehaviour
     }
     #endregion
 
-    #region LoadingIndicator
-    // 로딩 변수
-    int periodCnt = 0;
-    string loadingText = "로딩중입니다";
-    Coroutine loadingAnimCor;
-    WaitForSeconds textAnimTime = new WaitForSeconds(0.25f);
-    // 로딩 시작 시 호출
-    public void StartIndicator()
-    {
-        loadingAnimText.gameObject.SetActive(true);
-        StartCoroutine(LoadingTextAnimCor());
-    }
-
-    // 로딩 끝났을 때 호출
-    public void EndIndicator()
-    {
-        if (loadingAnimCor != null)
-            StopCoroutine(loadingAnimCor);
-        loadingAnimText.gameObject.SetActive(false);
-    }
-
-    public IEnumerator LoadingTextAnimCor()
-    {
-        while (true)
-        {
-            if (periodCnt < 4)
-            {
-                periodCnt += 1;
-                loadingAnimText.text += ".";
-            }
-            else
-            {
-                loadingAnimText.text = loadingText;
-                periodCnt = 0;
-            }
-            yield return textAnimTime;
-        }
-    }
-    #endregion
-
     #region LoadScene
     AsyncOperation asyncOperation = null;
     WaitForSeconds halfSecond = new WaitForSeconds(0.5f);
@@ -218,10 +180,89 @@ public class LoadingManager : MonoBehaviour
         }
         loadingSlider.value = 1f;
         loadingGauge.text = "100%";
-        yield return halfSecond;
-        EndLoading();
+        if(_sceneName == SceneName.Game)
+            StartCoroutine(PreloadMap());
+        else
+        {
+            asyncOperation.allowSceneActivation = true;
+            yield return halfSecond;
+            EndLoading();
+        }
     }
 
+    private IEnumerator PreloadMap()
+    {
+        StageData _stageData = GameManager.Instance.Data.CurrentStageData;
+        if(_stageData==null)
+        {
+            Debug.LogError("스테이지 데이터가 없음!! 에러!!");
+            yield break;
+        }
+
+        string _mapName = $"Ground{_stageData.StageID}";
+        GameObject _loadMap = Resources.Load<GameObject>($"Map/{_mapName}");
+        if (_loadMap == null)
+        {
+            Debug.LogError("맵 데이터가 없음!! 에러!!");
+            yield break;
+        }
+
+        GameObject _createMap = Instantiate(_loadMap);
+        _createMap.SetActive(false); 
+        DontDestroyOnLoad(_createMap);
+
+        yield return halfSecond; // 씬이 완전히 로드되도록 0.5초 대기 (한 프레임으로도 충분할듯??)
+        
+        asyncOperation.allowSceneActivation = true;
+        Scene _newScene = SceneManager.GetActiveScene();
+        SceneManager.MoveGameObjectToScene(_createMap, _newScene);
+        _createMap.SetActive(true);
+        EndLoading();
+    }
+    #endregion
+
+    #region LoadingText Animation
+    // 로딩 변수
+    int periodCnt = 0;
+    string loadingText = "로딩중입니다";
+    Coroutine loadingAnimCor;
+    WaitForSeconds textAnimTime = new WaitForSeconds(0.25f);
+    // 로딩 시작 시 호출
+    public void StartIndicator()
+    {
+        loadingAnimText.gameObject.SetActive(true);
+        StartCoroutine(LoadingTextAnimCor());
+    }
+
+    // 로딩 끝났을 때 호출
+    public void EndIndicator()
+    {
+        if (loadingAnimCor != null)
+            StopCoroutine(loadingAnimCor);
+        loadingAnimText.gameObject.SetActive(false);
+    }
+
+    // 로딩 텍스트 애니메이션
+    public IEnumerator LoadingTextAnimCor()
+    {
+        while (true)
+        {
+            if (periodCnt < 4)
+            {
+                periodCnt += 1;
+                loadingAnimText.text += ".";
+            }
+            else
+            {
+                loadingAnimText.text = loadingText;
+                periodCnt = 0;
+            }
+            yield return textAnimTime;
+        }
+    }
+    #endregion
+
+    #region Scene Util
     public string GetSceneName()
     {
         return Enums.GetStringValue<SceneName>(CurrentScene);

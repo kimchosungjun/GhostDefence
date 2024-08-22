@@ -19,9 +19,10 @@ public class DataManager : MonoBehaviour
     Dictionary<int, SummonData> stageSummonEnemyDictionary = new Dictionary<int, SummonData>();
     Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
 
-    #region Load Data Method
-
+    public PlayerData CurrentPlayerData { get; set; } = null;
     public StageData CurrentStageData { get; set; } = null;
+
+    #region Load Data Method
     public void Init()
     {
         // 코루틴으로 불러와야 함 (동기 방식)
@@ -148,8 +149,6 @@ public class DataManager : MonoBehaviour
     #endregion
 
     #region Player Data
-    public PlayerData CurrentPlayerData { get; set; } = null;
-    
     // UI에서 호출해서 사용
     public PlayerData[] LoadPlayerData()
     {

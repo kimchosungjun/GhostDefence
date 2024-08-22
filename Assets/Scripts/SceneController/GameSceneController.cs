@@ -10,16 +10,15 @@ public class GameSceneController : BaseSceneController
     StageData stageData;
     SummonData summonData;
     public StageData Data { get => stageData; }
-    [SerializeField] GameObject[] nodes;
+
+    GridManager gridManager;
     private void Awake()
     {
+        gridManager = GameManager.Grid;
         camBounds.Init();
         InitScene();
 
-        if (stageData.StageID == 0)
-        {
-            GameObject nodeObject = Instantiate(nodes[1]);
-        }
+
     }
 
     bool once = true;
@@ -34,6 +33,12 @@ public class GameSceneController : BaseSceneController
         if (Input.GetKeyDown(KeyCode.X))
         {
             poolManager.SummonEnemy(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            List<NodeData> nodePath = gridManager.PathFinder.GetPath(gridManager.GetNodeData(gridManager.StartCoordinate), gridManager.GetNodeData(gridManager.EndCoordinate));
+            DebugPath(nodePath);
         }
     }
 
@@ -52,5 +57,13 @@ public class GameSceneController : BaseSceneController
             _enemyDataList.Add(_enemyData);
         }
         poolManager.Init(_enemyDataList);
+    }
+
+    public void DebugPath(List<NodeData> nodePath)
+    {
+        for(int i=0; i<nodePath.Count; i++)
+        {
+            Debug.Log(nodePath[i].coordinates);
+        }
     }
 }

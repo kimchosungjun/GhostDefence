@@ -24,7 +24,7 @@ public class AStarPathFinder
             if((_nextX>=_startX && _nextX<=_endX) && (_nextZ>=_startZ && _nextZ <= _endZ))
             {
                 NodeData _nearNode = GameManager.Grid.GetNodeData(new Vector2Int(_nextX, _nextZ));
-                if (!_nearNode.canPlace)
+                if (!_nearNode.CanAccessTile())
                     continue;
                 _nearNodeDatas.Add(GameManager.Grid.GetNodeData(new Vector2Int(_nextX, _nextZ)));
             }
@@ -32,9 +32,15 @@ public class AStarPathFinder
         return _nearNodeDatas;
     }  
 
-    public int GetDistance(NodeData _startData, NodeData _endData)
+    // H 값은 거리만 고려, 비용은 G 값만 고려한다.
+    public int GetHDistance(NodeData _startData, NodeData _endData)
     {
         return Mathf.Abs(_startData.xPos - _endData.xPos) + Mathf.Abs(_startData.zPos - _endData.zPos);
+    }
+
+    public int GetGDistance(NodeData _startData, NodeData _endData)
+    {
+        return Mathf.Abs(_startData.xPos - _endData.xPos) + Mathf.Abs(_startData.zPos - _endData.zPos) * _endData.multiplyCost;
     }
 
     public List<NodeData> TracePath(NodeData _startNode, NodeData _endNode)
@@ -86,7 +92,7 @@ public class AStarPathFinder
             for(int idx =0; idx<nearNodeCnt; idx++)
             {
                 NodeData _nearNode = nearNodeSet[idx];
-                int _nearGCost = currentNode.gCost + GetDistance(currentNode, _nearNode);
+                int _nearGCost = currentNode.gCost + GetGDistance(currentNode, _nearNode);
 
                 if (closeNodeSet.Contains(_nearNode))
                     continue;
@@ -94,7 +100,7 @@ public class AStarPathFinder
                 if(currentNode.gCost > _nearGCost || !openNodeSet.Contains(_nearNode))
                 {
                     _nearNode.gCost = _nearGCost;
-                    _nearNode.hCost = GetDistance(_nearNode, _endNode);
+                    _nearNode.hCost = GetHDistance(_nearNode, _endNode);
                     _nearNode.parentNode = currentNode;
 
                     if (!openNodeSet.Contains(_nearNode))
