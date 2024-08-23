@@ -5,8 +5,8 @@ using UnityEngine;
 public class AStarPathFinder 
 {
     int deltaCnt = 4;
-    int[] deltaX = { 0, 0, 1, -1};
-    int[] deltaZ = { 1, -1, 0, 0 };
+    int[] deltaX = { 0, 0, 2, -2};
+    int[] deltaZ = { 2, -2, 0, 0 };
     public List<NodeData> GetNearNodeDatas(NodeData _currrentNodeData)
     {
         int _startX = GameManager.Grid.StartCoordinate.x;

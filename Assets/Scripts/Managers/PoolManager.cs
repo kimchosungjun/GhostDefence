@@ -53,6 +53,7 @@ public class PoolManager : MonoBehaviour
             if (!_enemyMoveSet[idx].gameObject.activeSelf)
             {
                 _enemyMoveSet[idx].gameObject.SetActive(true);
+                _enemyMoveSet[idx].CalculatePath();
                 return;
             }
         }

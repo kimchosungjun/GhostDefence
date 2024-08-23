@@ -32,15 +32,6 @@ public class GameSceneController : BaseSceneController
         {
             poolManager.SummonEnemy(0);
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            //gridManager.GetNodeData(gridManager.StartCoordinate);
-            //gridManager.GetNodeData(gridManager.EndCoordinate);
-   
-            List <NodeData> nodePath = gridManager.PathFinder.GetPath(gridManager.GetNodeData(gridManager.StartCoordinate), gridManager.GetNodeData(gridManager.EndCoordinate));
-            DebugPath(nodePath);
-        }
     }
 
     public override void InitScene()
@@ -58,13 +49,5 @@ public class GameSceneController : BaseSceneController
             _enemyDataList.Add(_enemyData);
         }
         poolManager.Init(_enemyDataList);
-    }
-
-    public void DebugPath(List<NodeData> nodePath)
-    {
-        for(int i=0; i<nodePath.Count; i++)
-        {
-            Debug.Log(nodePath[i].coordinates);
-        }
     }
 }

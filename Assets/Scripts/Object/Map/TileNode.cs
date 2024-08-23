@@ -5,7 +5,7 @@ using TileEnums;
 
 public class TileNode : MonoBehaviour
 {
-    [SerializeField] const int gridSize = 2;
+    //[SerializeField] const int gridSize = 2;
     [SerializeField] TileFeatureType currentTileFeatureType;
     [SerializeField] TileKind currentTileKind;
  
@@ -22,8 +22,8 @@ public class TileNode : MonoBehaviour
             currentTileFeatureType = TileFeatureType.Inaccessible;
 
         //int _divideSize = (int)UnityEditor.EditorSnapSettings.gridSize.z;
-        int _xPos = Mathf.RoundToInt(transform.position.x / gridSize);
-        int _zPos = Mathf.RoundToInt(transform.position.z / gridSize);
+        int _xPos = Mathf.RoundToInt(transform.position.x); // % gridSize
+        int _zPos = Mathf.RoundToInt(transform.position.z);
         int _yPos = (int)transform.position.y;
         //Vector2Int _coordinate = new Vector2Int(_xPos, _zPos);
 

@@ -721,7 +721,7 @@ GameObject:
   - component: {fileID: 8406845055882037668}
   - component: {fileID: 8406845055882037675}
   - component: {fileID: 1325786353164989914}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8406845055882037674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -790,9 +790,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &8406845055882037675
 CapsuleCollider:
@@ -813,10 +813,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.145118
-  m_Height: 0.73960495
+  m_Radius: 0.15
+  m_Height: 0.7
   m_Direction: 1
-  m_Center: {x: -0.0075883865, y: 0.33836842, z: 0.00768137}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &1325786353164989914
 MonoBehaviour:
   m_ObjectHideFlags: 0
