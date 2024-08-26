@@ -4,41 +4,26 @@ using UnityEngine;
 
 public class GameSceneController : BaseSceneController
 {
-    [SerializeField] GameStageType currentStage;
+    [SerializeField] GameStageType currentStage; // 없어도 되는 변수
     [SerializeField] PoolManager poolManager;
     [SerializeField] CameraBounds camBounds;
     StageData stageData;
     SummonData summonData;
     public StageData Data { get => stageData; }
 
-    GridManager gridManager;
+    [SerializeField] GameSceneUIController uiController;
+    public GameSceneUIController UIController { get { return uiController; } }
     private void Awake()
     {
-        gridManager = GameManager.Grid;
         camBounds.Init();
         InitScene();
-    }
-
-    bool once = true;
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z) && once)
-        {
-            InitScene();
-            once = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            poolManager.SummonEnemy(0);
-        }
     }
 
     public override void InitScene()
     {
         int _currentStageID = Enums.GetIntValue<GameStageType>(currentStage);
         stageData =  GameManager.Instance.Data.GetStageData(_currentStageID);
-        GameManager.GameSystem.InitGameStage(stageData);
+        GameManager.Instance.GameSystem.InitGameStage(stageData, this);
         summonData = GameManager.Instance.Data.GetSummonData(_currentStageID);
 
         List<EnemyData> _enemyDataList = new List<EnemyData>();
@@ -50,4 +35,11 @@ public class GameSceneController : BaseSceneController
         }
         poolManager.Init(_enemyDataList);
     }
+
+    public void SummonEnemy(int _enemyID)
+    {
+        poolManager.SummonEnemy(_enemyID);
+    }
+
+
 }

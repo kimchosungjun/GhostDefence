@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3886663386934364257}
   - component: {fileID: 6983027280504931476}
   - component: {fileID: 1151738021743176863}
+  - component: {fileID: 4643332433991783589}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6983027280504931476
 MonoBehaviour:
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 1151738021743176863}
+  gameSystem: {fileID: 4643332433991783589}
 --- !u!114 &1151738021743176863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,5 +58,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 993f79d9dcce62b4f84da2e025661c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4643332433991783589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896748227392768760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db40bd7012392343b8c03d01f08767c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -79,7 +79,7 @@ public class EnemyMover : MonoBehaviour
 
     public void ArriveDestination()
     {
-        GameManager.GameSystem.HitByEnemy(enemyData.Damage);
+        GameManager.Instance.GameSystem.HitByEnemy(enemyData.Damage);
         gameObject.SetActive(false);
         isFollowPath = false;
         transform.position = new Vector3(GameManager.Grid.StartCoordinate.x, transform.position.y, GameManager.Grid.StartCoordinate.y);

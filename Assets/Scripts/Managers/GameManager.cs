@@ -26,14 +26,14 @@ public class GameManager : MonoBehaviour
     #region Refer Managers
     [SerializeField] DataManager data;
     public DataManager Data { get { if (data == null) data = gameObject.GetComponentInChildren<DataManager>(); return data; } }
+
+    [SerializeField] GameSystemManager gameSystem;
+    public GameSystemManager GameSystem { get { if (gameSystem == null) gameSystem = gameObject.GetComponentInChildren<GameSystemManager>(); return gameSystem; } }
     #endregion
 
     #region Not Refer Managers
     private GridManager grid = new GridManager();
     public static GridManager Grid { get { return Instance.grid; } }
-
-    private GameSystemManager gameSystem = new GameSystemManager();
-    public static GameSystemManager GameSystem { get { return Instance.gameSystem; } }
     #endregion
     /*********** 라이프 사이클 *************/
     void Awake()
