@@ -19,6 +19,10 @@ public class GameSystemManager : MonoBehaviour
     float[] summonEnemyTime; // 소환 주기
     float[] summonEnemyTimer; // 시간 계산
     float[] summonStartTimer;
+
+    float[] summonEnemyDeltaTimer;
+    float[] summonStartDeltaTimer;
+
     #endregion
 
     // 게임 씬 진입 시, 현재 스테이지의 정보를 불러옴
@@ -52,12 +56,18 @@ public class GameSystemManager : MonoBehaviour
             return;
         }
 
-        summonCnt = summonData.summonCycle.Length;
-        for(int idx=0; idx< summonCnt; idx++)
+        summonCnt = summonData.summonCycle.Count;
+        summonEnemyTime = new float[summonCnt];
+        summonEnemyTimer = new float[summonCnt];
+        summonStartTimer = new float[summonCnt];
+
+        for (int idx=0; idx< summonCnt; idx++)
         {
             summonEnemyTime[idx] = summonData.summonCycle[idx];
             summonEnemyTimer[idx] = summonData.summonCycle[idx];
             summonStartTimer[idx] = summonData.summonStartTime[idx];
+            summonEnemyDeltaTimer[idx] = 0;
+            summonStartDeltaTimer[idx] = 0;
         }
         #endregion
     }
@@ -123,20 +133,25 @@ public class GameSystemManager : MonoBehaviour
 
     public IEnumerator Timer()
     {
-        while (playerTime <= 0f)
+        float _startTime = Time.time;
+        float _gameTime = playerTime;
+        float _takeTime = 0f;
+        while (_gameTime >= 0f)
         {
-            playerTime -= Time.deltaTime;
-            uiController.UpdateTimeValue(playerTime);
+            _takeTime = Time.time - _startTime;
+            _gameTime = playerTime- _takeTime;
+            uiController.UpdateTimeValue(_gameTime);
 
             for (int idx=0; idx<summonCnt; idx++)
             {
+
                 if (summonStartTimer[idx] > 0f)
                 {
-                    summonStartTimer[idx] -= Time.deltaTime;
+                    summonStartTimer[idx] -= _takeTime;
                     continue;
                 }
 
-                summonEnemyTimer[idx] -= Time.deltaTime;
+                summonEnemyTimer[idx] -= _takeTime;
                 if (summonEnemyTimer[idx] < 0f)
                 {
                     gameSceneController.SummonEnemy(summonData.enemyID[idx]);

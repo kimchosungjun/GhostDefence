@@ -121,8 +121,8 @@ public class SummonData
 {
     public int stageID;
     public int[] enemyID;
-    public float[] summonStartTime;
-    public float[] summonCycle;
+    public List<float> summonStartTime;
+    public List<float> summonCycle;
 }
 
 public class SummonEnemyData
