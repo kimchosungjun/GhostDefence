@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class LobbySceneController : MonoBehaviour
 {
-    [SerializeField] LobbyStartUI startUI;
- 
     private void Start()
     {
-        GameManager.Instance.Data.ClearDataManager();
+        GameManager.Instance.Data.CurrentPlayerData = null;
     }
 }

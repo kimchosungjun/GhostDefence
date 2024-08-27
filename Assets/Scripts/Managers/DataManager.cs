@@ -59,12 +59,6 @@ public class DataManager : MonoBehaviour
         T _data = JsonUtility.FromJson<T>(_dataText.text);
         return _data;
     }
-
-    public void ClearDataManager()
-    {
-        CurrentPlayerData = null;
-        CurrentStageData = null;
-    }
     #endregion
 
     #region Stage Data

@@ -89,6 +89,7 @@ public class GameSystemManager : MonoBehaviour
     public void GameOver()
     {
         // 게임 오버 UI 적용
+        gameSceneController.EndGame(false);
         Time.timeScale = 0f;
     }
     #endregion
@@ -177,7 +178,7 @@ public class GameSystemManager : MonoBehaviour
 
     public void WinGame()
     {
-        Debug.Log("승리했습니다.");
+        gameSceneController.EndGame(true);
         Time.timeScale = 0f;
     }
     public IEnumerator SummonCommandCor(int _index, float _waitTime)

@@ -35,7 +35,10 @@ public class LobbyDataSlot : MonoBehaviour
             slotObjectGroup[0].SetActive(false);
             slotObjectGroup[1].SetActive(false);
             textGroup[0].text = playerData.playerName;
-            textGroup[1].text = ((playerData.clearStage + 1) / 6).ToString("0") + "%";
+            if(playerData.isClearAll)
+                textGroup[1].text = "100%";
+            else
+                textGroup[1].text = (100*(playerData.clearStage) / 6).ToString("0") + "%";
             slotObjectGroup[2].SetActive(true);
             slotObjectGroup[3].SetActive(true);
         }

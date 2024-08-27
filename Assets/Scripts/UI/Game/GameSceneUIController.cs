@@ -11,6 +11,7 @@ public class GameSceneUIController : MonoBehaviour
         startBtn.onClick.AddListener(() => StartGame());
         pauseBtn.onClick.AddListener(() => PauseGame());
         pauseExitBtn.onClick.AddListener(() => ResumeGame());
+        endUI.Init();
     }
 
     #region HP
@@ -86,15 +87,16 @@ public class GameSceneUIController : MonoBehaviour
     #endregion
 
     #region Game End
-    
+    [SerializeField] GameEndUI endUI;
+    public GameEndUI EndUI { get { return endUI; } }
     public void WinGame()
     {
-
+        endUI.WinGame();
     }
 
     public void LoseGame()
     {
-
+        endUI.LoseGame();
     }
 
     #endregion

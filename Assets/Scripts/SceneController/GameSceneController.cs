@@ -41,5 +41,12 @@ public class GameSceneController : BaseSceneController
         poolManager.SummonEnemy(_enemyID);
     }
 
-
+    public void EndGame(bool _isWin)
+    {
+        if (_isWin)
+            uiController.EndUI.WinGame();
+        else
+            uiController.EndUI.LoseGame();
+        poolManager.ClearAllEnemy();
+    }
 }

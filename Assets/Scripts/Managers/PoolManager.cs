@@ -76,4 +76,10 @@ public class PoolManager : MonoBehaviour
             }
         }
     }
+
+    public void ClearAllEnemy()
+    {
+        // 불 타 사라지는 셰이더 효과 주면서 비활성화 시키기
+
+    }
 }

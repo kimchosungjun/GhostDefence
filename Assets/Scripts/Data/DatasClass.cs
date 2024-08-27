@@ -139,6 +139,9 @@ public class PlayerData
     public int dialogueIndex;
     public int nameIndex;
 
+    public bool isClearAll = false;
+    public const int maxClearStage = 6;
+
     public PlayerData()
     {
         clearStage = 0;
@@ -153,6 +156,21 @@ public class PlayerData
         playerName = _playerName;
         dialogueIndex = -1;
         nameIndex = _nameIndex;
+    }
+
+    public void WinStage(int _index)
+    {
+        if (_index == clearStage)
+        {
+            if(_index+1 == maxClearStage)
+            {
+                isClearAll = true;
+            }
+            else
+            {
+                clearStage += 1;
+            }
+        }
     }
 }
 
