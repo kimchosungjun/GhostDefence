@@ -86,7 +86,6 @@ public class GameSystemManager : MonoBehaviour
         uiController.UpdateHPValue(playerHP);
         // UI 적용
     }
-
     public void GameOver()
     {
         // 게임 오버 UI 적용

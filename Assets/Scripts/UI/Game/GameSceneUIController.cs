@@ -84,4 +84,18 @@ public class GameSceneUIController : MonoBehaviour
     }
 
     #endregion
+
+    #region Game End
+    
+    public void WinGame()
+    {
+
+    }
+
+    public void LoseGame()
+    {
+
+    }
+
+    #endregion
 }
