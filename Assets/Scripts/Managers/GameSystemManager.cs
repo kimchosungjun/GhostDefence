@@ -14,15 +14,15 @@ public class GameSystemManager : MonoBehaviour
     int playerHP = 0;
     int playerMoney = 0;
     float playerTime = 0f;
+    float playerTimer = 0f;
 
     int summonCnt = 0;
-    float[] summonEnemyTime; // 소환 주기
-    float[] summonEnemyTimer; // 시간 계산
+    float[] summonCycleTime; 
+    float[] summonStartTime;
+
     float[] summonStartTimer;
 
-    float[] summonEnemyDeltaTimer;
-    float[] summonStartDeltaTimer;
-
+    bool[] isSummonCommand;
     #endregion
 
     // 게임 씬 진입 시, 현재 스테이지의 정보를 불러옴
@@ -42,6 +42,7 @@ public class GameSystemManager : MonoBehaviour
         playerHP = stageData.HP;
         playerMoney = stageData.Money;
         playerTime = stageData.Time;
+        playerTimer = stageData.Time;
 
         uiController.UpdateHPValue(playerHP);
         uiController.UpdateTimeValue(playerTime);
@@ -57,17 +58,17 @@ public class GameSystemManager : MonoBehaviour
         }
 
         summonCnt = summonData.summonCycle.Count;
-        summonEnemyTime = new float[summonCnt];
-        summonEnemyTimer = new float[summonCnt];
+        summonCycleTime = new float[summonCnt];
+        summonStartTime = new float[summonCnt];
         summonStartTimer = new float[summonCnt];
+        isSummonCommand = new bool[summonCnt];
 
         for (int idx=0; idx< summonCnt; idx++)
         {
-            summonEnemyTime[idx] = summonData.summonCycle[idx];
-            summonEnemyTimer[idx] = summonData.summonCycle[idx];
+            summonCycleTime[idx] = summonData.summonCycle[idx];
+            summonStartTime[idx] = summonData.summonStartTime[idx];
             summonStartTimer[idx] = summonData.summonStartTime[idx];
-            summonEnemyDeltaTimer[idx] = 0;
-            summonStartDeltaTimer[idx] = 0;
+            isSummonCommand[idx] = false;
         }
         #endregion
     }
@@ -127,36 +128,42 @@ public class GameSystemManager : MonoBehaviour
 
     public void StopGame()
     {
-        StopCoroutine(Timer());
+        //StopCoroutine(Timer());
         Time.timeScale = 0f;
     }
 
     public IEnumerator Timer()
     {
         float _startTime = Time.time;
-        float _gameTime = playerTime;
         float _takeTime = 0f;
-        while (_gameTime >= 0f)
+        
+        playerTime = playerTimer;
+
+        for(int idx=0; idx<summonCnt; idx++)
+        {
+            summonStartTime[idx] = summonStartTimer[idx];
+        }
+
+        while (playerTimer >= 0f)
         {
             _takeTime = Time.time - _startTime;
-            _gameTime = playerTime- _takeTime;
-            uiController.UpdateTimeValue(_gameTime);
+            playerTimer = playerTime- _takeTime;
+            uiController.UpdateTimeValue(playerTimer);
 
             for (int idx=0; idx<summonCnt; idx++)
             {
 
                 if (summonStartTimer[idx] > 0f)
                 {
-                    summonStartTimer[idx] -= _takeTime;
+                    summonStartTimer[idx] = summonStartTime[idx] -_takeTime;
                     continue;
                 }
 
-                summonEnemyTimer[idx] -= _takeTime;
-                if (summonEnemyTimer[idx] < 0f)
-                {
-                    gameSceneController.SummonEnemy(summonData.enemyID[idx]);
-                    summonEnemyTimer[idx] = summonEnemyTime[idx];
-                }
+                if (!isSummonCommand[idx])
+                 {
+                    isSummonCommand[idx] = true;
+                    StartCoroutine(SummonCommandCor(idx, summonCycleTime[idx]));
+                 }
             }
             yield return null;
         }
@@ -166,13 +173,19 @@ public class GameSystemManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1f;
-        StartGame();
+        //StartGame();
     }
 
     public void WinGame()
     {
         Debug.Log("승리했습니다.");
         Time.timeScale = 0f;
+    }
+    public IEnumerator SummonCommandCor(int _index, float _waitTime)
+    {
+        gameSceneController.SummonEnemy(summonData.enemyID[_index]);
+        yield return new WaitForSeconds(_waitTime);
+        isSummonCommand[_index] = false;
     }
     #endregion
 }
