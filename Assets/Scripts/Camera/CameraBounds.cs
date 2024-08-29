@@ -54,8 +54,8 @@ public class CameraBounds : MonoBehaviour
      
 
         // 카메라 위치를 경계 내로 제한
-        newPosition.x = Mathf.Clamp(newPosition.x, mapBounds.min.x + frustumWidth/2, mapBounds.max.x - frustumWidth/2);
-        newPosition.z = Mathf.Clamp(newPosition.z, mapBounds.min.z + frustumHeight/2, mapBounds.max.z - frustumHeight/2);
+        newPosition.x = Mathf.Clamp(newPosition.x, mapBounds.min.x - frustumWidth/2, mapBounds.max.x + frustumWidth/2);
+        newPosition.z = Mathf.Clamp(newPosition.z, mapBounds.min.z - frustumHeight/2, mapBounds.max.z + frustumHeight/2);
 
         // yDelta를 사용하여 y 값을 고정
         newPosition.y = yDelta;
