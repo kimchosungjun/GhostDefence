@@ -7,7 +7,6 @@ public class EnemyMover : MonoBehaviour
 {
     [SerializeField] int enemyID;
     [SerializeField] EnemyFeature enemyFeature;
-    bool isFollowPath = false;
 
     EnemyData enemyData = null;
     List<NodeData> path = new List<NodeData>();
@@ -32,41 +31,48 @@ public class EnemyMover : MonoBehaviour
         else
             Debug.LogError("초기화 실패!!!!");
         #endregion
-        //Physics.OverlapBox(Vector3.zero,Vector3.back,)
         gridManager = GameManager.Grid;
     }
+    #endregion
 
-    private void Start()
+    public void SummonEnemy()
     {
+        gameObject.SetActive(true);
+        enemyFeature.ResetStat();
         CalculatePath();
     }
 
-    #endregion
-
     public void CalculatePath()
     {
-        if (isFollowPath)
+        // 시작지점과 목적지 설정 후, 경로 재탐색
+        NodeData _startNode = CurrentOnNodeData();
+        if (_startNode == null)
+        {
+            Debug.LogError("시작점을 찾지 못했습니다! : 에러 발생!!");
+            return;
+        }
+        NodeData _endNode = gridManager.GetNodeData(gridManager.EndCoordinate);
+        path = gridManager.PathFinder.GetPath(_startNode, _endNode);
+        
+        // 같지 않다면 이미 출발한 상태, 마지막 노드에 있는 중이라면 계속 이동하게 만듬
+        Vector2Int _currentPos = new Vector2Int((int)transform.position.x, (int)transform.position.z);
+        Vector2Int _startPos = new Vector2Int((int)_startNode.coordinates.x, (int)_startNode.coordinates.z);
+        if (_currentPos != gridManager.StartCoordinate && _startPos != gridManager.EndCoordinate)
             StopCoroutine(FollowPath());
 
-        NodeData _startNode = gridManager.GetNodeData(gridManager.StartCoordinate);
-        NodeData _endNode = gridManager.GetNodeData(gridManager.EndCoordinate);
-
-        path = gridManager.PathFinder.GetPath(_startNode, _endNode);
-
-        if(path!=null)
+        // 경로 따라 움직이기
+        if (path != null)
             StartCoroutine(FollowPath());
     }
 
     public IEnumerator FollowPath()
     {
         // 이동속도 이용하는 방법
-        isFollowPath = true;
         int pathCnt = path.Count;
         for (int idx=0; idx< pathCnt; idx++)
         {
             Vector3 startPosition = transform.position;
             Vector3 endPosition = path[idx].coordinates;
-            
             float movePercent = 0f;
 
             #region Immediately Rotate
@@ -87,15 +93,31 @@ public class EnemyMover : MonoBehaviour
                 yield return null;
             }
         }
-
         ArriveDestination();
     }
 
     public void ArriveDestination()
     {
         GameManager.Instance.GameSystem.HitByEnemy(enemyData.Damage);
-        gameObject.SetActive(false);
-        isFollowPath = false;
-        transform.position = new Vector3(GameManager.Grid.StartCoordinate.x, transform.position.y, GameManager.Grid.StartCoordinate.y);
+        enemyFeature.Dissolve();
     }
+
+
+    #region Check Current Under Tile : Recalculate Path
+    [Header("Tile RayCast")]
+    [SerializeField, Range(3f, 5f)] float detectTileDistance =4f;
+    [SerializeField] LayerMask tileLayer;
+    public NodeData CurrentOnNodeData()
+    {
+        RaycastHit _hit;
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f , Vector3.down, out _hit, detectTileDistance, tileLayer))
+        {
+            TileNode _tileNode = _hit.collider.GetComponentInParent<TileNode>();
+             if (_tileNode == null)
+                return null;
+            return GameManager.Grid.GetNodeData(_tileNode.Coordinate);
+        }
+        return null;
+    }
+    #endregion
 }

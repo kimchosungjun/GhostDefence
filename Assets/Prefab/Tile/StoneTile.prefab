@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6370187686201630016}
   - component: {fileID: 5722132645838030544}
   - component: {fileID: 5640402273616441863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stone_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307266591085735170}
   - component: {fileID: 806006018894998156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StoneTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

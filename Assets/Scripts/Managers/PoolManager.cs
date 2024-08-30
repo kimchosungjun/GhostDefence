@@ -53,12 +53,14 @@ public class PoolManager : MonoBehaviour
             if (!_enemyMoveSet[idx].gameObject.activeSelf)
             {
                 _enemyMoveSet[idx].gameObject.SetActive(true);
-                _enemyMoveSet[idx].CalculatePath();
+                _enemyMoveSet[idx].SummonEnemy();
                 return;
             }
         }
-
-        enemyPoolGroup[_enemyID].Add(Instantiate(resourceEnemySet[_enemyID], poolParentSet[_enemyID].transform).GetComponent<EnemyMover>());
+        GameObject _enemy = Instantiate(resourceEnemySet[_enemyID], poolParentSet[_enemyID].transform);
+        EnemyMover _enemyMover = _enemy.GetComponent<EnemyMover>();
+        enemyPoolGroup[_enemyID].Add(_enemyMover);
+        _enemyMover.SummonEnemy();
     }
 
     public void AnnounceChangePath()

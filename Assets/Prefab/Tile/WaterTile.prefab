@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5038132558218921389}
   - component: {fileID: 6289301870354993136}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 8505722220085404328}
   - component: {fileID: 698537693589609493}
   - component: {fileID: 3007382134626295510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Water_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
