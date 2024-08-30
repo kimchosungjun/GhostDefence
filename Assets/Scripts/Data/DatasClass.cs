@@ -37,6 +37,15 @@ public class EnemyData
     public string EnemyName;
     public int Damage;
 
+    public EnemyData(EnemyData _enemyData) 
+    {
+        EnemyID = _enemyData.EnemyID;
+        Speed = _enemyData.Speed;
+        HP = _enemyData.HP;
+        EnemyName = _enemyData.EnemyName;
+        Damage = _enemyData.Damage;
+    }
+
     public EnemyData(int _id, float _speed, float _hp, string _name, int _damage)
     {
         EnemyID = _id;

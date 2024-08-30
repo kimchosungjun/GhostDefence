@@ -8,7 +8,8 @@ public class TileNode : MonoBehaviour
     //[SerializeField] const int gridSize = 2;
     [SerializeField] TileFeatureType currentTileFeatureType;
     [SerializeField] TileKind currentTileKind;
- 
+
+    public Vector2Int Coordinate { get; set; } = Vector2Int.zero;
     public bool CanPlace { get; set; } = true;
 
     private void Start()
@@ -33,6 +34,7 @@ public class TileNode : MonoBehaviour
         else
             _isAccessible = true;
 
+        Coordinate = new Vector2Int(_xPos, _yPos);
         NodeData _currentNodeData = new NodeData(_xPos, _yPos, _zPos, _isAccessible, currentTileKind);
         GameManager.Grid.AddMap(_currentNodeData);
     }

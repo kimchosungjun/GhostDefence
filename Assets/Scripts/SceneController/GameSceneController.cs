@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameSceneController : BaseSceneController
 {
-    [SerializeField] GameStageType currentStage; // 없어도 되는 변수
     [SerializeField] PoolManager poolManager;
     [SerializeField] CameraBounds camBounds;
     StageData stageData;
@@ -21,10 +20,9 @@ public class GameSceneController : BaseSceneController
 
     public override void InitScene()
     {
-        int _currentStageID = Enums.GetIntValue<GameStageType>(currentStage);
-        stageData =  GameManager.Instance.Data.GetStageData(_currentStageID);
+        stageData = GameManager.Instance.Data.CurrentStageData;
         GameManager.Instance.GameSystem.InitGameStage(stageData, this);
-        summonData = GameManager.Instance.Data.GetSummonData(_currentStageID);
+        summonData = GameManager.Instance.Data.GetSummonData(stageData.StageID);
 
         List<EnemyData> _enemyDataList = new List<EnemyData>();
         int _summonEnemyCnt = summonData.enemyID.Length;

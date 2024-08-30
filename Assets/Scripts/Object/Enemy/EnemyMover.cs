@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyFeature))]
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] int enemyID;
+    [SerializeField] EnemyFeature enemyFeature;
     bool isFollowPath = false;
 
     EnemyData enemyData = null;
@@ -14,11 +16,23 @@ public class EnemyMover : MonoBehaviour
     #region Unity Life Cycle
     private void Awake()
     {
+        #region Enemy Data
         if (enemyData == null)
-            enemyData = GameManager.Instance.Data.GetEnemyData(enemyID);
+        {
+            if(GameManager.Instance.Data.GetEnemyData(enemyID)!=null)
+                enemyData = new EnemyData(GameManager.Instance.Data.GetEnemyData(enemyID));
+        }
         if (enemyData == null)
             Debug.LogError("적 데이터를 찾을 수 없다..");
 
+        if (enemyFeature == null)
+            enemyFeature = GetComponent<EnemyFeature>();
+        if(enemyFeature!=null && enemyData!=null)
+            enemyFeature.Init(enemyData);
+        else
+            Debug.LogError("초기화 실패!!!!");
+        #endregion
+        //Physics.OverlapBox(Vector3.zero,Vector3.back,)
         gridManager = GameManager.Grid;
     }
 
