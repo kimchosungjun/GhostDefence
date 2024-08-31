@@ -849,9 +849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 8406845055089693555}
-  dissolveMats: []
   coll: {fileID: 8406845055882037675}
-  dissolveTime: 0
+  dissolveTime: 2
 --- !u!1 &8406845055918955520
 GameObject:
   m_ObjectHideFlags: 0

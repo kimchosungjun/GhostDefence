@@ -8,20 +8,21 @@ public class EnemyFeature : MonoBehaviour
     [SerializeField] protected Collider coll;
     [SerializeField, Range(1f,2f)] protected float dissolveTime;
     protected EnemyData enemyData = null;
-    protected Material[] dissolveMats;
+    protected Material[] rendererMats;
+    //[SerializeField] protected Material[] dissolveMats;
 
     public virtual void Init(EnemyData _enemyData)
     {
         if (meshRenderer == null)
             meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        Material[] _skinMats = meshRenderer.materials;
-        int _matCnt = _skinMats.Length;
-        dissolveMats = new Material[_matCnt];
+        rendererMats = meshRenderer.materials;
+        int _matCnt = rendererMats.Length;
+        //dissolveMats = new Material[_matCnt];
         for (int idx=0; idx<_matCnt; idx++)
         {
-            Material _newMat = new Material(_skinMats[idx]);
-            dissolveMats[idx] = _newMat;
-            meshRenderer.materials[idx] = dissolveMats[idx];
+            //Material _newMat = new Material(rendererMats[idx]);
+            //dissolveMats[idx] = _newMat;
+            //meshRenderer.materials[idx] = dissolveMats[idx];
         }
 
         if (_enemyData!=null)
@@ -48,15 +49,17 @@ public class EnemyFeature : MonoBehaviour
     IEnumerator DissolveEffect()
     {
         float _timer = 0f;
-        int _matCnt = dissolveMats.Length;
+        //int _matCnt = dissolveMats.Length;
+        int _matCnt = rendererMats.Length;
         float _dissolveValue = 0f;
         while (_timer < dissolveTime)
         {
+            //Debug.Log($"Timer:{_timer} / dissolveTime : {dissolveTime}");
             _timer += Time.deltaTime;
             _dissolveValue = Mathf.Lerp(1, 0, _timer / dissolveTime);
             for (int idx = 0; idx < _matCnt; idx++)
             {
-                dissolveMats[idx].SetFloat("Split Size", _dissolveValue);
+                rendererMats[idx].SetFloat("_Split", _dissolveValue);
             }
             yield return null;
         }
@@ -64,7 +67,8 @@ public class EnemyFeature : MonoBehaviour
         coll.enabled = true;
         for (int idx = 0; idx < _matCnt; idx++)
         {
-            dissolveMats[idx].SetFloat("Split Size", 1);
+            //dissolveMats[idx].SetFloat("_Split", 1);
+            rendererMats[idx].SetFloat("_Split", 1);
         }
         transform.position = new Vector3(GameManager.Grid.StartCoordinate.x, transform.position.y, GameManager.Grid.StartCoordinate.y);
     }
