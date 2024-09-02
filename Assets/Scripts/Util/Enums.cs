@@ -57,6 +57,13 @@ namespace UIEnums
         Exit,
         SelectIcon
     }
+
+    public enum LobbySetUI
+    {
+        Slow,
+        Middle,
+        Fast
+    }
 }
 
 namespace TileEnums

@@ -6,13 +6,30 @@ using TMPro;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField, Tooltip("0:Name, 1:Speaker")] TextMeshProUGUI[] dialogueTexts;
-    [SerializeField, Range(0f, 1f)] float dialogueSpeed;
     [SerializeField, Tooltip("0:TextBox, 1:SpaceBar")] GameObject[] dialogueObjects;
+    float dialogueSpeed;
 
     bool isEndLine = false;
     bool isTalking = false;
     int dialogueIndex = 0;
     Dialogue dialogue = null;
+
+    public void Init()
+    {
+        switch(GameManager.Instance.PDialogue.currentSettingUI)
+        {
+            case UIEnums.LobbySetUI.Slow:
+                dialogueSpeed = 0.2f;
+                break;
+            case UIEnums.LobbySetUI.Middle:
+                dialogueSpeed = 0.1f;
+                break;
+            case UIEnums.LobbySetUI.Fast:
+                dialogueSpeed = 0.05f;
+                break;
+        }    
+    }
+
     public void StartDialogue(Dialogue _dialogue)
     {
         if (isTalking)
@@ -86,7 +103,7 @@ public class DialogueUI : MonoBehaviour
         dialogueTexts[1].text = dialogue.storyLines[dialogueIndex];
         dialogueIndex += 1;
         isEndLine = true;
-        dialogueObjects[1].SetActive(false);
+        dialogueObjects[1].SetActive(true);
     }
 
     public void CheckNextDialogue()

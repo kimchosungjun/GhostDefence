@@ -12,6 +12,7 @@ public class GameSceneUIController : MonoBehaviour
         pauseBtn.onClick.AddListener(() => PauseGame());
         pauseExitBtn.onClick.AddListener(() => ResumeGame());
         endUI.Init();
+        dialogueUI.Init();
         PTutorial.Init();
     }
 

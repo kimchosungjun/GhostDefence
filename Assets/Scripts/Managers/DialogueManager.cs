@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UIEnums; 
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     public DialogueEvent PDialogueEvent { get { return dialogueEvent; } }
 
     Dialogue dialogue = null;
+
+    public LobbySetUI currentSettingUI = LobbySetUI.Middle; 
 
     public void StartDialogue(int _stroyID)
     {
