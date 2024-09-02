@@ -150,13 +150,18 @@ public class PlayerData
 
     public bool isClearAll = false;
     public const int maxClearStage = 6;
-
+    public bool[] isSeenDialogue;
     public PlayerData()
     {
         clearStage = 0;
         playerName = "";
         dialogueIndex = -1;
         nameIndex = -1;
+        isSeenDialogue = new bool[maxClearStage];
+        for(int i=0; i<maxClearStage; i++)
+        {
+            isSeenDialogue[i] = false;
+        }
     }
 
     public PlayerData(string _playerName, int _nameIndex)
@@ -165,6 +170,11 @@ public class PlayerData
         playerName = _playerName;
         dialogueIndex = -1;
         nameIndex = _nameIndex;
+        isSeenDialogue = new bool[maxClearStage];
+        for (int i = 0; i < maxClearStage; i++)
+        {
+            isSeenDialogue[i] = false;
+        }
     }
 
     public void WinStage(int _index)
@@ -183,4 +193,21 @@ public class PlayerData
     }
 }
 
+#endregion
+
+#region Dialogue Data
+
+[Serializable]
+public class Dialogue
+{
+    public int stageID;
+    public string speakerName;
+    public List<string> storyLines;
+}
+
+[Serializable]
+public class DialogueData
+{
+    public List<Dialogue> dialogues;
+}
 #endregion

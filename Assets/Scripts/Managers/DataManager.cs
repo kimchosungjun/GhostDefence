@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour
     const string StageURL = "https://docs.google.com/spreadsheets/d/1v1GiLP9SS7OLewQLneGzZGmZh3hSmDzM9eipHIP1bis/export?format=tsv&range=A2:F";
     const string EnemyURL = "https://docs.google.com/spreadsheets/d/1sb_ePlJwgrWbd4G0mgp2Tw5Np7IMCc8_N2oATSjsXt0/export?format=tsv&range=A2:E";
     const string summonEnemyDataName = "summonEnemyData";
+    const string dialogueDataName = "dialogueData";
     string[] playerDataName = { "/Player0.json", "/Player1.json", "/Player2.json" };
 
     /************Data Dictionary************/
@@ -18,7 +19,7 @@ public class DataManager : MonoBehaviour
     Dictionary<int, EnemyData> enemyDictionary = new Dictionary<int, EnemyData>();
     Dictionary<int, SummonData> stageSummonEnemyDictionary = new Dictionary<int, SummonData>();
     Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
-
+    Dictionary<int, Dialogue> dialogueDictionary = new Dictionary<int, Dialogue>(); 
     public PlayerData CurrentPlayerData { get; set; } = null;
     public StageData CurrentStageData { get; set; } = null;
 
@@ -35,6 +36,14 @@ public class DataManager : MonoBehaviour
         for(int idx=0; idx<summonListCnt; idx++)
         {
             stageSummonEnemyDictionary.Add(_summonData.summonEnemyData[idx].stageID, _summonData.summonEnemyData[idx]);
+        }
+
+        // 대화 데이터를 불러옴
+        DialogueData _dialogueData = LoadJsonFromResources<DialogueData>(dialogueDataName);
+        int dialogueListCnt = _dialogueData.dialogues.Count;
+        for(int i=0; i<dialogueListCnt; i++)
+        {
+            dialogueDictionary.Add(_dialogueData.dialogues[i].stageID, _dialogueData.dialogues[i]);
         }
     }
 
@@ -212,6 +221,15 @@ public class DataManager : MonoBehaviour
         string _dataPathName = GetPlayerDataPath(_index);
         if (File.Exists(_dataPathName))
             File.Delete(_dataPathName);
+    }
+    #endregion
+
+    #region Dialogue Data
+    public Dialogue GetDialogueData(int _stageID)
+    {
+        if (dialogueDictionary.ContainsKey(_stageID))
+            return dialogueDictionary[_stageID];
+        return null;
     }
     #endregion
 }

@@ -12,6 +12,12 @@ public class GameSceneUIController : MonoBehaviour
         pauseBtn.onClick.AddListener(() => PauseGame());
         pauseExitBtn.onClick.AddListener(() => ResumeGame());
         endUI.Init();
+        PTutorial.Init();
+    }
+
+    void Update()
+    {
+        dialogueUI.DialogueUpdate();
     }
 
     #region HP
@@ -99,5 +105,15 @@ public class GameSceneUIController : MonoBehaviour
         endUI.LoseGame();
     }
 
+    #endregion
+
+    #region Dialogue
+    [SerializeField] DialogueUI dialogueUI;
+    public DialogueUI PDialogueUI { get { if (dialogueUI == null) dialogueUI.GetComponentInChildren<DialogueUI>(); return dialogueUI; } }
+    #endregion
+
+    #region Tutorial
+    [SerializeField] TutorialUI tutorial;
+    public TutorialUI PTutorial { get { if (tutorial == null) tutorial = GetComponentInChildren<TutorialUI>(); return tutorial; } }
     #endregion
 }

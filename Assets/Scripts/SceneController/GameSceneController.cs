@@ -18,6 +18,12 @@ public class GameSceneController : BaseSceneController
         InitScene();
     }
 
+    private void Start()
+    {
+        // 대화 시작  
+        GameManager.Instance.PDialogue.StartDialogue(Data.StageID);
+    }
+
     public override void InitScene()
     {
         stageData = GameManager.Instance.Data.CurrentStageData;

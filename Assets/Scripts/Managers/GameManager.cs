@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameSystemManager gameSystem;
     public GameSystemManager GameSystem { get { if (gameSystem == null) gameSystem = gameObject.GetComponentInChildren<GameSystemManager>(); return gameSystem; } }
+
+    [SerializeField] DialogueManager dialogue;
+    public DialogueManager PDialogue { get { if (dialogue == null) dialogue = gameObject.GetComponentInChildren<DialogueManager>(); return Instance.dialogue; } }
     #endregion
 
     #region Not Refer Managers
