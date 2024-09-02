@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UIEnums;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -16,7 +17,12 @@ public class DialogueUI : MonoBehaviour
 
     public void Init()
     {
-        switch(GameManager.Instance.PDialogue.currentSettingUI)
+        SetDialogueSpeed(GameManager.Instance.PDialogue.CurrentSettingUI);
+    }
+
+    public void SetDialogueSpeed(LobbySetUI _setUI)
+    {
+        switch (_setUI)
         {
             case UIEnums.LobbySetUI.Slow:
                 dialogueSpeed = 0.2f;
@@ -27,7 +33,7 @@ public class DialogueUI : MonoBehaviour
             case UIEnums.LobbySetUI.Fast:
                 dialogueSpeed = 0.05f;
                 break;
-        }    
+        }
     }
 
     public void StartDialogue(Dialogue _dialogue)

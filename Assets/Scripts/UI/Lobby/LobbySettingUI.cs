@@ -12,7 +12,7 @@ public class LobbySettingUI : LobbyUI
     [SerializeField] TMP_Dropdown dropDown;
     public override void Init()
     {
-        dropDown.value = (int)GameManager.Instance.PDialogue.currentSettingUI;
+        dropDown.value = (int)GameManager.Instance.PDialogue.CurrentSettingUI;
         dropDown.onValueChanged.AddListener(ChangeDropDownValue);
         exitBtn.onClick.AddListener(() => UIController.ReleaseEnterKey());
     }
@@ -25,6 +25,6 @@ public class LobbySettingUI : LobbyUI
     public void ChangeDropDownValue(int _value)
     {
         LobbySetUI _changeType = (LobbySetUI)_value;
-        GameManager.Instance.PDialogue.currentSettingUI = _changeType;
+        GameManager.Instance.PDialogue.CurrentSettingUI = _changeType;
     }
 }

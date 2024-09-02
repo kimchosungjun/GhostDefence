@@ -14,12 +14,22 @@ public class GameSceneUIController : MonoBehaviour
         endUI.Init();
         dialogueUI.Init();
         PTutorial.Init();
+        pauseUI.Init(this);
     }
 
     void Update()
     {
-        dialogueUI.DialogueUpdate();
+        if(!isPause)
+            dialogueUI.DialogueUpdate();
     }
+
+    #region Block UI
+    [SerializeField] GameObject blockObject;
+    public void BlockUI(bool _isBlock)
+    {
+        blockObject.SetActive(_isBlock);
+    }
+    #endregion
 
     #region HP
     [SerializeField] TextMeshProUGUI hpText;
@@ -64,13 +74,14 @@ public class GameSceneUIController : MonoBehaviour
     [Header("게임 정지")]
     [SerializeField] Button pauseBtn;
     [SerializeField] Button pauseExitBtn;
+    [SerializeField] PauseUI pauseUI;
     bool isPause = false;
     public void PauseGame()
     {
         isPause = true;
         pauseBtn.interactable = false;
         GameManager.Instance.GameSystem.StopGame();
-        // pause ui 활성
+        pauseUI.ActivePause();
     }
 
     public void ResumeGame()
@@ -78,17 +89,7 @@ public class GameSceneUIController : MonoBehaviour
         isPause = false;
         pauseBtn.interactable = true;
         GameManager.Instance.GameSystem.ResumeGame();
-        // pause ui 비활성
-    }
-
-    public void PreessEscape()
-    {
-        if (isPause)
-            ResumeGame();
-        else
-            PauseGame();
-
-        isPause = !isPause;
+        pauseUI.ResumeGame();
     }
 
     #endregion

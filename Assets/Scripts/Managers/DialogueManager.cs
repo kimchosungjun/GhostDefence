@@ -13,7 +13,8 @@ public class DialogueManager : MonoBehaviour
 
     Dialogue dialogue = null;
 
-    public LobbySetUI currentSettingUI = LobbySetUI.Middle; 
+    LobbySetUI currentSettingUI = LobbySetUI.Middle; 
+    public LobbySetUI CurrentSettingUI { get { return currentSettingUI; } set { currentSettingUI = value; UIController.PDialogueUI.SetDialogueSpeed(currentSettingUI); } }
 
     public void StartDialogue(int _stroyID)
     {
