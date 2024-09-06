@@ -15,6 +15,7 @@ public class GameSceneUIController : MonoBehaviour
         dialogueUI.Init();
         PTutorial.Init();
         pauseUI.Init(this);
+        towerSetUI.Init();
     }
 
     void Update()
@@ -117,5 +118,15 @@ public class GameSceneUIController : MonoBehaviour
     #region Tutorial
     [SerializeField] TutorialUI tutorial;
     public TutorialUI PTutorial { get { if (tutorial == null) tutorial = GetComponentInChildren<TutorialUI>(); return tutorial; } }
+    #endregion
+
+    #region TowerSet UI
+    [SerializeField] TowerSetUI towerSetUI;
+    public TowerSetUI TowerSet { get { return towerSetUI; } }
+    #endregion
+
+    #region TowerUpgradeUI
+    [SerializeField] TowerUpgradeUI towerUpgradeUI;
+    public TowerUpgradeUI TowerUpgrade { get { return towerUpgradeUI; } }
     #endregion
 }

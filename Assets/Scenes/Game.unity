@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 64772113}
   - component: {fileID: 64772112}
   - component: {fileID: 64772111}
+  - component: {fileID: 64772114}
   m_Layer: 5
   m_Name: BasicSlot
   m_TagString: Untagged
@@ -697,6 +698,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64772109}
   m_CullTransparentMesh: 1
+--- !u!114 &64772114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64772109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5890527df2e5a4bbfac29ff413578f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 1547311661}
+  - {fileID: 1532117953}
+  slotBtn: {fileID: 64772111}
+  turret: {fileID: 694803941451806194, guid: f21d81d288aac594d93f0d1362fb4417, type: 3}
 --- !u!1 &65547603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,6 +1612,7 @@ GameObject:
   - component: {fileID: 123431098}
   - component: {fileID: 123431097}
   - component: {fileID: 123431096}
+  - component: {fileID: 123431099}
   m_Layer: 5
   m_Name: WideSlot
   m_TagString: Untagged
@@ -1705,6 +1724,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123431094}
   m_CullTransparentMesh: 1
+--- !u!114 &123431099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123431094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5890527df2e5a4bbfac29ff413578f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 1992329333}
+  - {fileID: 965936152}
+  slotBtn: {fileID: 123431096}
+  turret: {fileID: 6902240546031429166, guid: a5ae92261212e124683e776c5b92bc91, type: 3}
 --- !u!1 &132771176
 GameObject:
   m_ObjectHideFlags: 0
@@ -5414,6 +5450,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803e7799f4e3b704f97550f9c357add9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerDecideBtns:
+  - {fileID: 1874292241}
+  - {fileID: 1889931975}
+  texts:
+  - {fileID: 1150069764}
+  - {fileID: 1174516368}
+  - {fileID: 1316632448}
+  - {fileID: 1878526341}
 --- !u!1 &618911869
 GameObject:
   m_ObjectHideFlags: 0
@@ -11574,6 +11618,7 @@ GameObject:
   - component: {fileID: 1517551082}
   - component: {fileID: 1517551081}
   - component: {fileID: 1517551080}
+  - component: {fileID: 1517551083}
   m_Layer: 5
   m_Name: ExplosionSlot
   m_TagString: Untagged
@@ -11685,6 +11730,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1517551078}
   m_CullTransparentMesh: 1
+--- !u!114 &1517551083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517551078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5890527df2e5a4bbfac29ff413578f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 1608683756}
+  - {fileID: 1903259631}
+  slotBtn: {fileID: 1517551080}
+  turret: {fileID: 1853241599880333530, guid: 06d3d010eccba1a47b64b307463b20c4, type: 3}
 --- !u!1001 &1528607821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15170,6 +15232,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49465d807a763bf4f85cd2672783ddea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerSlots:
+  - {fileID: 64772114}
+  - {fileID: 123431099}
+  - {fileID: 1517551083}
 --- !u!1 &2023206022
 GameObject:
   m_ObjectHideFlags: 0
@@ -15800,6 +15866,8 @@ MonoBehaviour:
   endUI: {fileID: 203685158}
   dialogueUI: {fileID: 768807173}
   tutorial: {fileID: 222303706}
+  towerSetUI: {fileID: 2017751455}
+  towerUpgradeUI: {fileID: 615894474}
 --- !u!1 &2094176494
 GameObject:
   m_ObjectHideFlags: 0

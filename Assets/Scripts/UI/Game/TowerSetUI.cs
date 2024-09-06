@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class TowerSetUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TowerSlot[] towerSlots;
+    public TowerSlot[] Slots { get { return towerSlots; } }
+    public void Init()
     {
-        
-    }
+        int _id = GameManager.Instance.Data.CurrentStageData.StageID;
+        int _slotCnt = towerSlots.Length;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for(int i=0; i< _slotCnt; i++)
+        {
+            if (i <= _id / 2)
+                towerSlots[i].Init(true);
+            else
+                towerSlots[i].Init(false);
+        }
     }
 }

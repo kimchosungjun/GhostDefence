@@ -7,16 +7,23 @@ public class STowerData : ScriptableObject
 {
     const int maxUpgradeLevel =3;
     const float increaseUpgradeValue = 1f;
-    
+
+    [Header("Stat")]
     public TowerAttackType attackType;
     public float attackFrequency;
     public float attackValue;
-    public int costMoney;
     public float attackRange;
+
+    [Header("Cost")]
+    public int costMoney;
+    public int sellMoney;
     public int upgradeLevel;
+    public int upgradeCost;
 
-    public GameObject weaponObject;
-
+    [Header("Info")]
+    public string towerName;
+    public string towerInformation;
+    
     public STowerData(TowerAttackType _attackType , float _attackFrequency, float _attackValue, int _costMoney, float _attackRange)
     {
         upgradeLevel = 0;
@@ -34,6 +41,19 @@ public class STowerData : ScriptableObject
         attackFrequency = _data.attackFrequency;
         attackValue = _data.attackValue;
         costMoney = _data.costMoney;
+        sellMoney = _data.sellMoney;
         attackRange = _data.attackRange;
+        towerName = _data.towerName;
+        towerInformation = _data.towerInformation;
+        upgradeCost = _data.upgradeCost;
     }
+
+    public bool CanUpgradeLevel()
+    {
+        if (upgradeLevel >= maxUpgradeLevel)
+            return false;
+        return true;
+    }
+
+    public float GetUpgradeValue() { return increaseUpgradeValue; }
 }

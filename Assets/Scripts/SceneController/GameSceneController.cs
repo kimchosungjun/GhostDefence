@@ -68,7 +68,8 @@ public class GameSceneController : BaseSceneController
     private void Update()
     {
         #region 터렛 배치
-        if (CurrentTurret != null)
+        // 땅 클릭하면 업그레이드 초기화
+        if (BuildTurret != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -79,8 +80,10 @@ public class GameSceneController : BaseSceneController
         #endregion
     }
 
-    public Turret CurrentTurret { get; set; } = null;
+    // TowerUpgrade에 정보전달, 설치와 동시에 업그레이드 타워로 지정
+    public Turret BuildTurret { get; set; } = null;
 
+    public Turret SelectTurret { get; set; } = null;
     #endregion
 
     public bool IsSelectTower { get; set; } = false;

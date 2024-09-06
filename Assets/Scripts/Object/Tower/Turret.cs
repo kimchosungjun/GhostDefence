@@ -9,6 +9,9 @@ public abstract class Turret : MonoBehaviour
     [SerializeField] protected Transform headTf;
     [SerializeField] protected STowerData towerData;
     [SerializeField] protected Projectile projectile;
+
+    public STowerData TowerData { get { return towerData; } }
+
     protected abstract void DetectTarget();
 
     protected virtual void RotateHead() { }
