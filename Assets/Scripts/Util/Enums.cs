@@ -35,9 +35,6 @@ public enum TowerAttackType
     Explosion
 }
 
-
-
-
 public enum GameStageType
 {
     Tutorial = 0,
@@ -80,4 +77,13 @@ namespace TileEnums
         Stone,
         Water
     }
+}
+
+public enum DefineLayer
+{
+    Default=0,
+    Enemy = 3,
+    UI=5,
+    Tile = 6,
+    Turret=7,
 }

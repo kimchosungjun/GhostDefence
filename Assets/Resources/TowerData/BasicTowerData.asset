@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35d50ab9cac3dff4ea818db813e012f1, type: 3}
-  m_Name: SlowTowerData
+  m_Name: BasicTowerData
   m_EditorClassIdentifier: 
-  attackType: 1
+  attackType: 0
   attackFrequency: 0.2
   attackValue: 5
   costMoney: 10

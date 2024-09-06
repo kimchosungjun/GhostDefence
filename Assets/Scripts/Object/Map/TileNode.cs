@@ -8,10 +8,10 @@ public class TileNode : MonoBehaviour
     //[SerializeField] const int gridSize = 2;
     [SerializeField] TileFeatureType currentTileFeatureType;
     [SerializeField] TileKind currentTileKind;
-
     public Vector2Int Coordinate { get; set; } = Vector2Int.zero;
     public bool CanPlace { get; set; } = true;
 
+    Vector3 senseHalfScale = new Vector3(1, 1, 1);
     private void Start()
     {
         InitNodeData();
@@ -37,5 +37,11 @@ public class TileNode : MonoBehaviour
         Coordinate = new Vector2Int(_xPos, _yPos);
         NodeData _currentNodeData = new NodeData(_xPos, _yPos, _zPos, _isAccessible, currentTileKind);
         GameManager.Grid.AddMap(_currentNodeData);
+    }
+
+    public bool SenseOnTile()
+    {
+        return true;
+        //Physics.OverlapBox(transform.position, senseHalfScale,);
     }
 }
