@@ -10375,9 +10375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d7c3a3425b4048aef40df6762a40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 0
   poolManager: {fileID: 2094176495}
   camBounds: {fileID: 2079376312}
   uiController: {fileID: 2090782265}
@@ -15442,13 +15439,27 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3674616149387874136, guid: f21d81d288aac594d93f0d1362fb4417, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8679181400057180861}
+      addedObject: {fileID: 3257162225865836356}
   m_SourcePrefab: {fileID: 100100000, guid: f21d81d288aac594d93f0d1362fb4417, type: 3}
 --- !u!1 &3257162225865836355 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3674616149387874136, guid: f21d81d288aac594d93f0d1362fb4417, type: 3}
   m_PrefabInstance: {fileID: 609272877178334861}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3257162225865836356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257162225865836355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a907e66a8312f48b75642f2ae4def7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headTf: {fileID: 0}
+  towerData: {fileID: 0}
 --- !u!1001 &3908185622816810539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15571,17 +15582,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06d3d010eccba1a47b64b307463b20c4, type: 3}
---- !u!114 &8679181400057180861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3257162225865836355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc23276fcb48894cae96ee455d3ed25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headTf: {fileID: 0}
-  detectRange: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameSceneController : BaseSceneController
 {
-    [SerializeField] LayerMask tileLayer;
+    int tileLayer = 1<<(int)DefineLayer.Tile;
     [SerializeField] PoolManager poolManager;
     [SerializeField] CameraBounds camBounds;
     StageData stageData;
@@ -89,6 +89,7 @@ public class GameSceneController : BaseSceneController
         //#endregion
     }
     #endregion
+
     public bool IsSelectTower { get; set; } = false;
     public TileNode CurrentNode { get; set; } = null;
     Dictionary<string, TileNode> tileGroup = new Dictionary<string, TileNode>();

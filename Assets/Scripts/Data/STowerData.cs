@@ -15,6 +15,8 @@ public class STowerData : ScriptableObject
     public float attackRange;
     public int upgradeLevel;
 
+    public GameObject weaponObject;
+
     public STowerData(TowerAttackType _attackType , float _attackFrequency, float _attackValue, int _costMoney, float _attackRange)
     {
         upgradeLevel = 0;
