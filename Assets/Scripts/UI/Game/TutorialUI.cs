@@ -24,7 +24,7 @@ public class TutorialUI : MonoBehaviour
 
     string playerInfoStr = "성의 내구도, 플레이이어의 재화 그리고 게임을 시작하는 버튼을 확인할 수 있습니다.";
     string timerInfoStr = "해가 뜰 때까지의 시간을 확인할 수 있습니다.";
-    string towerInfoStr = "타워 아이콘을 눌러 원하는 곳에 건설할 수 있습니다. \n<color=red>(물과 적이 있는 타일은 제외)";
+    string towerInfoStr = "타워 아이콘을 눌러 원하는 곳에 건설할 수 있습니다. \n좌클릭으로 건설, 우클릭으론 취소할 수 있습니다.\n<color=red>(물과 적이 있는 타일은 제외)";
 
     public void Init()
     {

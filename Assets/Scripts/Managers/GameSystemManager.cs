@@ -8,8 +8,9 @@ public class GameSystemManager : MonoBehaviour
     #region Stage Data
     StageData stageData = null;
     SummonData summonData;
-    GameSceneController gameSceneController;
     GameSceneUIController uiController;
+    GameSceneController gameSceneController;
+    public GameSceneController GameController { get { return gameSceneController; } }
 
     int playerHP = 0;
     int playerMoney = 0;

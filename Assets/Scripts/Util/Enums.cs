@@ -68,14 +68,14 @@ namespace TileEnums
     public enum TileFeatureType
     {
         Inaccessible,
-        Accessible
+        Accessible,
+        StartEnd
     }
 
     public enum TileKind
     {
         Grass,
-        Stone,
-        Water
+        Stone
     }
 }
 

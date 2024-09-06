@@ -6,6 +6,8 @@ using TileEnums;
 public class TileNode : MonoBehaviour
 {
     //[SerializeField] const int gridSize = 2;
+    int senseLayer = 1 << (int)DefineLayer.Turret | 1<<(int)DefineLayer.Enemy;
+
     [SerializeField] TileFeatureType currentTileFeatureType;
     [SerializeField] TileKind currentTileKind;
     public Vector2Int Coordinate { get; set; } = Vector2Int.zero;
@@ -19,8 +21,6 @@ public class TileNode : MonoBehaviour
 
     public void InitNodeData()
     {
-        if (currentTileKind == TileKind.Water)
-            currentTileFeatureType = TileFeatureType.Inaccessible;
 
         //int _divideSize = (int)UnityEditor.EditorSnapSettings.gridSize.z;
         int _xPos = Mathf.RoundToInt(transform.position.x); // % gridSize
@@ -41,7 +41,9 @@ public class TileNode : MonoBehaviour
 
     public bool SenseOnTile()
     {
-        return true;
-        //Physics.OverlapBox(transform.position, senseHalfScale,);
+        Collider[]  _colls = Physics.OverlapBox(transform.position, senseHalfScale, Quaternion.identity, senseLayer);
+        if (_colls.Length > 0)
+            return true;
+        return false;
     }
 }

@@ -67,27 +67,20 @@ public class GameSceneController : BaseSceneController
     #region 게임 진행 중 계속 호출
     private void Update()
     {
-        //#region 타일에 마우스 클릭
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit rayHit;
-        //    bool rayCastHit = Physics.Raycast(ray, out rayHit, 100f, tileLayer);
-
-        //    if (rayHit.collider != null)
-        //        GetNode(rayHit.collider);
-        //    else
-        //        Debug.Log("충돌체가 감지되지 않음");
-        //}
-        //#endregion
-
-        //#region 타일 감지
-        //if (CurrentNode != null)
-        //{
-
-        //}
-        //#endregion
+        #region 터렛 배치
+        if (CurrentTurret != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+            bool rayCastHit = Physics.Raycast(ray, out rayHit, 100f, tileLayer);
+            if (rayCastHit)
+                GetNode(rayHit.collider);
+        }
+        #endregion
     }
+
+    public Turret CurrentTurret { get; set; } = null;
+
     #endregion
 
     public bool IsSelectTower { get; set; } = false;
@@ -126,6 +119,11 @@ public class GameSceneController : BaseSceneController
         else
             uiController.EndUI.LoseGame();
         poolManager.ClearAllEnemy();
+    }
+
+    public Projectile SummonProjectile(Projectile _projectile)
+    {
+        return poolManager.SummonProjectile(_projectile);
     }
     #endregion
 

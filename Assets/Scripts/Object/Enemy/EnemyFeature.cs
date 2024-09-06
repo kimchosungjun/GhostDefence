@@ -4,62 +4,84 @@ using UnityEngine;
 
 public class EnemyFeature : MonoBehaviour
 {
-    [SerializeField] protected SkinnedMeshRenderer meshRenderer;
+    [SerializeField] protected SkinnedMeshRenderer skmRenderer;
+    [SerializeField] protected MeshRenderer mRenderer;
     [SerializeField] protected Collider coll;
     [SerializeField, Range(1f,2f)] protected float dissolveTime;
     protected EnemyData enemyData = null;
-    protected Material[] rendererMats;
-    //[SerializeField] protected Material[] dissolveMats;
+    protected EnemyMover enemyMover = null;
+    protected List<Material> rendererMatGroup = new List<Material>();
 
-    public virtual void Init(EnemyData _enemyData)
+    float enemyHP = 0;
+    public virtual void Init(EnemyData _enemyData, EnemyMover _mover)
     {
-        if (meshRenderer == null)
-            meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        rendererMats = meshRenderer.materials;
-        int _matCnt = rendererMats.Length;
-        //dissolveMats = new Material[_matCnt];
-        for (int idx=0; idx<_matCnt; idx++)
+        if (enemyMover==null)
+            enemyMover = _mover;
+
+        if (mRenderer != null)
         {
-            //Material _newMat = new Material(rendererMats[idx]);
-            //dissolveMats[idx] = _newMat;
-            //meshRenderer.materials[idx] = dissolveMats[idx];
+            Material[] mrendererMats = mRenderer.materials;
+            int _matCnt = mrendererMats.Length;
+            for (int k = 0; k < _matCnt; k++)
+            {
+                rendererMatGroup.Add(mrendererMats[k]);
+            }
         }
 
-        if (_enemyData!=null)
+        if (skmRenderer != null)
+        {
+            Material[] skmrendererMats = skmRenderer.materials;
+            int _skmatCnt = skmrendererMats.Length;
+            for (int i = 0; i < _skmatCnt; i++)
+            {
+                rendererMatGroup.Add(skmrendererMats[i]);
+            }
+        }
+
+        if (_enemyData != null)
+        {
             enemyData = _enemyData;
+            enemyHP = enemyData.HP;
+        }
         if (coll == null)
             coll = GetComponentInChildren<Collider>();
+        
+        isDead = false;
     }
 
     public virtual void Hit(float _damage, TowerAttackType _attackType)
     {
-        enemyData.HP -= _damage;
-        if (enemyData.HP <= 0)
+        if (isDead)
+            return;
+        enemyHP -= _damage;
+        if (enemyHP <= 0)
             Dissolve();
         else
             HitEffect(_attackType);
     }
 
+    bool isDead = false;
     public virtual void Dissolve()
     {
         coll.enabled = false;
+        isDead = true;
+        isSlow = false;
+        enemyMover.Speed = enemyData.Speed;
         StartCoroutine(DissolveEffect());
     }
 
     IEnumerator DissolveEffect()
     {
         float _timer = 0f;
-        //int _matCnt = dissolveMats.Length;
-        int _matCnt = rendererMats.Length;
+        int _matCnt = rendererMatGroup.Count;
         float _dissolveValue = 0f;
         while (_timer < dissolveTime)
         {
-            //Debug.Log($"Timer:{_timer} / dissolveTime : {dissolveTime}");
             _timer += Time.deltaTime;
             _dissolveValue = Mathf.Lerp(1, 0, _timer / dissolveTime);
             for (int idx = 0; idx < _matCnt; idx++)
             {
-                rendererMats[idx].SetFloat("_Split", _dissolveValue);
+                rendererMatGroup[idx].SetFloat("_Split", _dissolveValue);
             }
             yield return null;
         }
@@ -67,8 +89,7 @@ public class EnemyFeature : MonoBehaviour
         coll.enabled = true;
         for (int idx = 0; idx < _matCnt; idx++)
         {
-            //dissolveMats[idx].SetFloat("_Split", 1);
-            rendererMats[idx].SetFloat("_Split", 1);
+            rendererMatGroup[idx].SetFloat("_Split", 1);
         }
         transform.position = new Vector3(GameManager.Grid.StartCoordinate.x, transform.position.y, GameManager.Grid.StartCoordinate.y);
     }
@@ -77,14 +98,75 @@ public class EnemyFeature : MonoBehaviour
     {
         switch (_attackType)
         {
-            case TowerAttackType.Normal:
-                break;
             case TowerAttackType.Slow:
+                SlowFeature();
                 break;
             case TowerAttackType.Explosion:
+                ExplosionFeature();
                 break;
         }
     }
+
+    #region Slow
+
+    bool isSlow = false;
+    float slowTimer = 0f;
+    public void SlowFeature()
+    {
+        if (isSlow)
+            slowTimer = 0f;
+        else
+        {
+            enemyMover.Speed = enemyData.Speed / 2;
+            StartCoroutine(SlowTimer());
+        }
+    }
+
+    IEnumerator SlowTimer()
+    {
+        isSlow = true;
+        while (slowTimer<2f)
+        {
+            if (!isSlow)
+                yield break;
+            slowTimer += Time.deltaTime;
+            yield return null;
+        }
+        isSlow = false;
+        enemyMover.Speed = enemyData.Speed;
+    }
+    #endregion
+
+    #region Explosion
+    WaitForSeconds oneSec = new WaitForSeconds(1f);
+    public void ExplosionFeature()
+    {
+        if(!isDead)
+            StartCoroutine(ExplosionEffect());
+    }
+
+    IEnumerator ExplosionEffect()
+    {
+        if (isDead)
+            yield break;
+        yield return oneSec;
+        if (isDead)
+            yield break;
+        Hit(1, TowerAttackType.Normal);
+        if (isDead)
+            yield break;
+        yield return oneSec;
+        if (isDead)
+            yield break;
+        Hit(1, TowerAttackType.Normal);
+        if (isDead)
+            yield break;
+        yield return oneSec;
+        if (isDead)
+            yield break;
+        Hit(1, TowerAttackType.Normal);
+    }
+    #endregion
 
     public virtual void ResetStat()
     {

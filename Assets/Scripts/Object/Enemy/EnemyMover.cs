@@ -12,6 +12,8 @@ public class EnemyMover : MonoBehaviour
     List<NodeData> path = new List<NodeData>();
     GridManager gridManager;
 
+    public float Speed { get; set; } = 0;
+
     #region Unity Life Cycle
     private void Awake()
     {
@@ -27,11 +29,13 @@ public class EnemyMover : MonoBehaviour
         if (enemyFeature == null)
             enemyFeature = GetComponent<EnemyFeature>();
         if(enemyFeature!=null && enemyData!=null)
-            enemyFeature.Init(enemyData);
+            enemyFeature.Init(enemyData,this);
         else
             Debug.LogError("초기화 실패!!!!");
         #endregion
+
         gridManager = GameManager.Grid;
+        Speed = enemyData.Speed;
     }
     #endregion
 
@@ -82,7 +86,7 @@ public class EnemyMover : MonoBehaviour
 
             while (movePercent < 1f)
             {
-                movePercent += Time.deltaTime * enemyData.Speed;
+                movePercent += Time.deltaTime * Speed;
                 transform.position = Vector3.Lerp(startPosition, endPosition, movePercent);
                 #region Smooth Rotate
                 // 회전에선 선형보간인 Lerp보단 구형보간인 Slerp가 좀 더 부드러움

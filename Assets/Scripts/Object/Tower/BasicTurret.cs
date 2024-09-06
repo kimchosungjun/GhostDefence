@@ -9,6 +9,7 @@ public class BasicTurret : Turret
 
     public Transform Target { get; set; } = null;
 
+
     private void Awake()
     {
         currentTowerData = new STowerData(towerData);
@@ -27,15 +28,15 @@ public class BasicTurret : Turret
         if (canAttack && Target!=null)
         {
             canAttack = false;
-            // 공격 기능 추가
-            UseWeapon();
+            LaunchProjectile();
             StartCoroutine(AttackCoolTimer());
         }
     }
 
-    public void UseWeapon()
+    public void LaunchProjectile()
     {
-
+         Projectile _projectile = GameManager.Instance.GameSystem.GameController.SummonProjectile(projectile);
+        _projectile.Init(launchPoint.position, Target.position, currentTowerData);
     }
 
     IEnumerator AttackCoolTimer()
