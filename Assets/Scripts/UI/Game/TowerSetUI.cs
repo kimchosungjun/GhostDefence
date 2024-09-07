@@ -14,9 +14,9 @@ public class TowerSetUI : MonoBehaviour
         for(int i=0; i< _slotCnt; i++)
         {
             if (i <= _id / 2)
-                towerSlots[i].Init(true);
-            else
                 towerSlots[i].Init(false);
+            else
+                towerSlots[i].Init(true);
         }
     }
 }

@@ -6,10 +6,10 @@
         "0"
       ],
       "summonStartTime": [
-        "1"
+        "0"
       ],
       "summonCycle": [
-        "50"
+        "2"
       ]
     },
     {
@@ -18,10 +18,75 @@
         "0"
       ],
       "summonStartTime": [
-        "1"
+        "0"
       ],
       "summonCycle": [
         "1.5"
+      ]
+    },
+    {
+      "stageID": 2,
+      "enemyID": [
+        "0",
+        "1"
+      ],
+      "summonStartTime": [
+        "0",
+        "2"
+      ],
+      "summonCycle": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "stageID": 3,
+      "enemyID": [
+        "0"
+      ],
+      "summonStartTime": [
+        "0",
+        "1"
+      ],
+      "summonCycle": [
+        "1",
+        "1.5"
+      ]
+    },
+    {
+      "stageID": 4,
+      "enemyID": [
+        "0",
+        "1",
+        "2"
+      ],
+      "summonStartTime": [
+        "0",
+        "2",
+        "5"
+      ],
+      "summonCycle": [
+        "0.5",
+        "2",
+        "5"
+      ]
+    },
+    {
+      "stageID": 5,
+      "enemyID": [
+        "0",
+        "1",
+        "2"
+      ],
+      "summonStartTime": [
+        "1",
+        "3",
+        "0"
+      ],
+      "summonCycle": [
+        "0.5",
+        "1",
+        "4"
       ]
     }
   ]

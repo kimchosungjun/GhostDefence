@@ -81,6 +81,7 @@ public class GameSceneUIController : MonoBehaviour
     #region Game Control
     bool isStartGame = false;
     [Header("게임 시작")]
+    [SerializeField] TextMeshProUGUI fastText;
     [SerializeField] Button startBtn;
     [SerializeField] Button fastBtn;
     public void StartGame()
@@ -92,6 +93,7 @@ public class GameSceneUIController : MonoBehaviour
         }
         else
             Time.timeScale = 1f;
+        fastText.text = "X1";
         fastBtn.interactable = true;
         startBtn.interactable = false;
     }
@@ -99,6 +101,7 @@ public class GameSceneUIController : MonoBehaviour
     public void FastGame()
     {
         Time.timeScale = 2f;
+        fastText.text = "X2";
         fastBtn.interactable = false;
         startBtn.interactable = true;
     }
