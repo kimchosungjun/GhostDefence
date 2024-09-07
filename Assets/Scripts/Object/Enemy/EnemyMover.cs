@@ -46,6 +46,7 @@ public class EnemyMover : MonoBehaviour
         CalculatePath();
     }
 
+    private Coroutine followPathCoroutine = null;
     public void CalculatePath()
     {
         // 시작지점과 목적지 설정 후, 경로 재탐색
@@ -56,17 +57,20 @@ public class EnemyMover : MonoBehaviour
             return;
         }
         NodeData _endNode = gridManager.GetNodeData(gridManager.EndCoordinate);
+        // 이미 도착지에 있으면 재탐색 안함
+        if (_startNode == _endNode)
+            return;
+        if(followPathCoroutine!=null)
+            StopCoroutine(followPathCoroutine);
+
+        if (path.Count > 0)
+            path.Clear();
         path = gridManager.PathFinder.GetPath(_startNode, _endNode);
-        
-        // 같지 않다면 이미 출발한 상태, 마지막 노드에 있는 중이라면 계속 이동하게 만듬
-        Vector2Int _currentPos = new Vector2Int((int)transform.position.x, (int)transform.position.z);
-        Vector2Int _startPos = new Vector2Int((int)_startNode.coordinates.x, (int)_startNode.coordinates.z);
-        if (_currentPos != gridManager.StartCoordinate && _startPos != gridManager.EndCoordinate)
-            StopCoroutine(FollowPath());
 
         // 경로 따라 움직이기
-        if (path != null)
-            StartCoroutine(FollowPath());
+        if (path == null || path.Count == 0)
+            return;
+        followPathCoroutine =StartCoroutine(FollowPath());
     }
 
     public IEnumerator FollowPath()
@@ -77,28 +81,28 @@ public class EnemyMover : MonoBehaviour
         {
             Vector3 startPosition = transform.position;
             Vector3 endPosition = path[idx].coordinates;
-            float movePercent = 0f;
 
             #region Immediately Rotate
             Vector3 direction = path[idx].coordinates - transform.position;
             transform.rotation = Quaternion.LookRotation(direction);
             #endregion
 
-            while (movePercent < 1f)
+            direction.y = 0;
+            direction = direction.normalized;
+            while (Vector3.Distance(transform.position,endPosition) > 0.1f)
             {
-                movePercent += Time.deltaTime * Speed;
-                transform.position = Vector3.Lerp(startPosition, endPosition, movePercent);
-                #region Smooth Rotate
-                // 회전에선 선형보간인 Lerp보단 구형보간인 Slerp가 좀 더 부드러움
-                //Vector3 _direction = path[idx].coordinates - transform.position;
-                //Quaternion _rotateValue = Quaternion.LookRotation(_direction);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, _rotateValue, movePercent);
-                #endregion
+                transform.position += direction * Time.deltaTime * Speed;
                 yield return null;
             }
         }
         ArriveDestination();
     }
+        #region Smooth Rotate (Not Use)
+        // 회전에선 선형보간인 Lerp보단 구형보간인 Slerp가 좀 더 부드러움
+        //Vector3 _direction = path[idx].coordinates - transform.position;
+        //Quaternion _rotateValue = Quaternion.LookRotation(_direction);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, _rotateValue, movePercent);
+        #endregion
 
     public void ArriveDestination()
     {
@@ -106,21 +110,36 @@ public class EnemyMover : MonoBehaviour
         enemyFeature.Dissolve();
     }
 
+    public void DispatchGameEnd()
+    {
+        StopAllCoroutines();
+        enemyFeature.DisPatchGameEnd();
+        gameObject.SetActive(false);
+    }
+
     #region Check Current Under Tile : Recalculate Path
-    [Header("Tile RayCast")]
-    [SerializeField, Range(3f, 5f)] float detectTileDistance =4f;
+    [Header("Tile Detect")]
     [SerializeField] LayerMask tileLayer;
+    Vector3 detectBoxVec = new Vector3(0.5f, 0.5f, 0.5f);
     public NodeData CurrentOnNodeData()
     {
-        RaycastHit _hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 0.5f , Vector3.down, out _hit, detectTileDistance, tileLayer))
+        Collider[] _colls = Physics.OverlapBox(transform.position - Vector3.up * 0.5f, detectBoxVec, Quaternion.identity, tileLayer);
+        int _collCnt = _colls.Length;
+        if (_collCnt == 0)
+            return null;
+
+        int _nearestIndex = 0;
+        float _nearestDistance = Vector3.Distance(transform.position, _colls[0].transform.position);
+        for(int i=1; i<_collCnt; i++)
         {
-            TileNode _tileNode = _hit.collider.GetComponentInParent<TileNode>();
-             if (_tileNode == null)
-                return null;
-            return GameManager.Grid.GetNodeData(_tileNode.Coordinate);
+            float _distance = Vector3.Distance(transform.position, _colls[i].transform.position);
+            if (_distance < _nearestDistance)
+            {
+                _nearestDistance = _distance;
+                _nearestIndex = i;
+            }
         }
-        return null;
+        return _colls[_nearestIndex].GetComponent<TileNode>().TileNodeData;
     }
     #endregion
 }

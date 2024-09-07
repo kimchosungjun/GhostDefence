@@ -11,6 +11,7 @@ public class GameSceneController : BaseSceneController
     int tileLayer = 1<<(int)DefineLayer.Tile;
     int turretLayer = 1 << (int)DefineLayer.Turret;
     [SerializeField] PoolManager poolManager;
+    public PoolManager Pool { get { return poolManager; } }
     [SerializeField] CameraBounds camBounds;
     StageData stageData;
     SummonData summonData;
@@ -80,8 +81,10 @@ public class GameSceneController : BaseSceneController
             {
                 if (!_isOnTile)
                 {
-                    // 타워 건설 후, 돈이 없다면 취소
-                    CreateTurret(_tileNode.BuildPosition);
+                    CreateTurret(_tileNode.BuildPosition, _tileNode);
+                    _tileNode.BuildTurretOnTile();
+                    // 적들에게 다시 경로 탐색하도록 만듬
+                    poolManager.AnnounceChangePath();
                 }
             }
             else if (Input.GetMouseButtonDown(1))
@@ -111,14 +114,16 @@ public class GameSceneController : BaseSceneController
         #endregion
     }
 
-    public void CreateTurret(Vector3 _createPos)
+    public void CreateTurret(Vector3 _createPos, TileNode _tileNode)
     {
-        Instantiate(BuildTurret.gameObject,_createPos,Quaternion.identity,turretGroup);
+        GameObject _newTurretObject =Instantiate(BuildTurret.gameObject,_createPos,Quaternion.identity,turretGroup);
+        Turret _newTurret = _newTurretObject.GetComponent<Turret>();
+        _newTurret.UnderTurretTileNode = _tileNode;
         GameManager.Instance.GameSystem.UseMoney(BuildTurret.ScriptableTowerData.costMoney);
+
+        // 타워 건설 후, 돈이 없다면 취소
         if (!GameManager.Instance.GameSystem.CanUse(BuildTurret.ScriptableTowerData.costMoney))
-        {
             BuildTurret = null;
-        }
     }
 
     // TowerUpgrade에 정보전달, 설치와 동시에 업그레이드 타워로 지정
@@ -180,6 +185,7 @@ public class GameSceneController : BaseSceneController
         else
             uiController.EndUI.LoseGame();
         poolManager.ClearAllEnemy();
+        Time.timeScale = 0f;
     }
 
     public Projectile SummonProjectile(Projectile _projectile)

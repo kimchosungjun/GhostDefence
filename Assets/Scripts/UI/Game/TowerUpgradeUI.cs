@@ -10,6 +10,7 @@ public class TowerUpgradeUI : MonoBehaviour
     [SerializeField, Tooltip("0:name, 1: info, 2:upgrade, 3:sell")] TextMeshProUGUI[] texts;
 
     Turret turret =null;
+    GameSystemManager system=null;
     public void Init()
     {
         InitialText();
@@ -65,7 +66,12 @@ public class TowerUpgradeUI : MonoBehaviour
 
     public void PressSellBtn()
     {
-        GameManager.Instance.GameSystem.EarnMoney(turret.TowerData.sellMoney);
+        if (system == null)
+            system = GameManager.Instance.GameSystem;
+        system.GameController.SelectTurret.UnderTurretTileNode.DestroyTurretOnTile();
+        system.GameController.SelectTurret = null;
+        system.EarnMoney(turret.TowerData.sellMoney);
+        system.GameController.Pool.AnnounceChangePath();
         Destroy(turret.gameObject);
     }
     #endregion

@@ -8,11 +8,13 @@ public abstract class Turret : MonoBehaviour
     [SerializeField] protected Transform launchPoint; 
     [SerializeField] protected Transform headTf;
     [SerializeField] protected Projectile projectile;
+
     [SerializeField] protected STowerData stowerData;
     public STowerData ScriptableTowerData { get { return stowerData; } }
-
     protected PTowerData currentTowerData;
     public PTowerData TowerData { get { return currentTowerData; } }
+
+    public TileNode UnderTurretTileNode { get; set; } = null;
 
     protected abstract void DetectTarget();
 

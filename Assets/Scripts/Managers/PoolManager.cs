@@ -123,7 +123,6 @@ public class PoolManager : MonoBehaviour
 
     public void ClearAllEnemy()
     {
-        // 불 타 사라지는 셰이더 효과 주면서 비활성화 시키기
         List<int>_keys = new List<int>(enemyPoolGroup.Keys);
         int _enemyTypeCnt = _keys.Count;
         for (int i=0; i<_enemyTypeCnt; i++)
@@ -131,7 +130,7 @@ public class PoolManager : MonoBehaviour
             int _groupCnt = enemyPoolGroup[_keys[i]].Count;
             for(int k=0; k<_groupCnt; k++)
             {
-                enemyPoolGroup[_keys[i]][k].gameObject.SetActive(false); 
+                enemyPoolGroup[_keys[i]][k].DispatchGameEnd();
             }
         }
     }

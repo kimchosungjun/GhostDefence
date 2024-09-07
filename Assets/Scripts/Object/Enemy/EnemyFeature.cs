@@ -184,4 +184,9 @@ public class EnemyFeature : MonoBehaviour
         enemyHP = enemyData.HP;
         isDead = false;
     }
+
+    public void DisPatchGameEnd()
+    {
+        StopAllCoroutines();
+    }
 }

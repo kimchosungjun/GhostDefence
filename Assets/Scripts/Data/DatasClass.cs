@@ -65,7 +65,6 @@ public class NodeData
 {
     #region Placeable
     public bool canPlace;
-    public bool isAccessible;
     public TileKind tileKind;
     #endregion
 
@@ -84,14 +83,14 @@ public class NodeData
     #endregion
 
     // »ý¼ºÀÚ
-    public NodeData(int _xPos, int _yPos ,int _zPos, bool _isAccessible, TileKind _tileKind)
+    public NodeData(int _xPos, int _yPos ,int _zPos, TileKind _tileKind)
     {
         // Recieve Parameter 
         xPos = _xPos;
         zPos = _zPos;
         coordinates = new Vector3(_xPos, _yPos, _zPos);
-        isAccessible = _isAccessible;
         tileKind = _tileKind;
+        canPlace = true;
         switch (_tileKind)
         {
             case TileKind.Grass:
@@ -100,8 +99,11 @@ public class NodeData
             case TileKind.Stone:
                 multiplyCost = 2;
                 break;
-            default:
-                multiplyCost = 0;
+            case TileKind.Water:
+                canPlace = false;
+                break;
+            case TileKind.StartEnd:
+                canPlace = false;
                 break;
         }
 
@@ -109,19 +111,20 @@ public class NodeData
         gCost = 0;
         hCost = 0;
         parentNode = null;
-        canPlace = true;
     }
 
     #region Function
     public bool CanAccessTile()
     {
-        if (!isAccessible)
-            return false;
         if (canPlace)
             return true;
-        return false;
+        else
+        {
+            if(tileKind==TileKind.StartEnd)
+                return true;
+            return false;
+        }
     }
-
     #endregion
 }
 #endregion

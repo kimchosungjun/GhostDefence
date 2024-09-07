@@ -66,18 +66,12 @@ namespace UIEnums
 
 namespace TileEnums
 {
-    public enum TileFeatureType
-    {
-        Inaccessible,
-        Accessible,
-        StartEnd
-    }
-
     public enum TileKind
     {
         Grass,
         Stone,
-        Water
+        Water,
+        StartEnd
     }
 }
 

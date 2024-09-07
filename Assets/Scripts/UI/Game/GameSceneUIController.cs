@@ -8,15 +8,23 @@ public class GameSceneUIController : MonoBehaviour
 {
     void Awake()
     {
+        #region Link Button
         startBtn.onClick.AddListener(() => StartGame());
+        fastBtn.onClick.AddListener(() => FastGame());
+        startBtn.interactable = true;
+        fastBtn.interactable = false;
         pauseBtn.onClick.AddListener(() => PauseGame());
         pauseExitBtn.onClick.AddListener(() => ResumeGame());
+        #endregion
+
+        #region Init UI
         endUI.Init();
         dialogueUI.Init();
         PTutorial.Init();
         pauseUI.Init(this);
         towerSetUI.Init();
         towerUpgradeUI.Init();
+        #endregion
     }
 
     void Update()
@@ -71,12 +79,28 @@ public class GameSceneUIController : MonoBehaviour
     #endregion
 
     #region Game Control
+    bool isStartGame = false;
     [Header("게임 시작")]
     [SerializeField] Button startBtn;
+    [SerializeField] Button fastBtn;
     public void StartGame()
     {
-        GameManager.Instance.GameSystem.StartGame();
+        if (isStartGame == false)
+        {
+            isStartGame = true;
+            GameManager.Instance.GameSystem.StartGame();
+        }
+        else
+            Time.timeScale = 1f;
+        fastBtn.interactable = true;
         startBtn.interactable = false;
+    }
+
+    public void FastGame()
+    {
+        Time.timeScale = 2f;
+        fastBtn.interactable = false;
+        startBtn.interactable = true;
     }
 
     [Header("게임 정지")]
