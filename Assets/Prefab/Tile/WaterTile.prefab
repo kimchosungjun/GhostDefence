@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5038132558218921389}
   - component: {fileID: 6289301870354993136}
+  - component: {fileID: 8353422019444901312}
   m_Layer: 6
   m_Name: WaterTile
   m_TagString: Untagged
@@ -47,6 +48,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTileFeatureType: 0
   currentTileKind: 2
+--- !u!65 &8353422019444901312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416010941744724162}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!1 &5302070771475367749
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,8 +80,7 @@ GameObject:
   - component: {fileID: 7589930539290074612}
   - component: {fileID: 8505722220085404328}
   - component: {fileID: 698537693589609493}
-  - component: {fileID: 3007382134626295510}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Water_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,24 +153,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3007382134626295510
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5302070771475367749}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: -1, y: 0.5, z: 1}

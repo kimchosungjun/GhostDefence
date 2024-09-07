@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7096522870002353718}
   - component: {fileID: 4941885564261839641}
   - component: {fileID: 1103273573555844573}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExplosionProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,6 +229,10 @@ PrefabInstance:
       value: Explosion
       objectReference: {fileID: 0}
     - target: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -239,9 +243,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 505678595645896449}
-    - targetCorrespondingSourceObject: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4638094450412117763}
   m_SourcePrefab: {fileID: 100100000, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
 --- !u!4 &6052063208931929640 stripped
 Transform:
@@ -265,27 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a27e688382f264ba62916d60ecb8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maintainTime: 1
+  maintainTime: 2
   explosionRange: 3
-  explosionDamage: 2
---- !u!135 &4638094450412117763
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6052063208931929653}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  explosionDamage: 1.5

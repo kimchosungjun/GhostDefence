@@ -10,16 +10,16 @@ public class DatasClass { }
 public class StageData
 {
     public int StageID;
-    public int XSize;
-    public int YSize;
+    public int EndX;
+    public int EndY;
     public float Time;
     public int HP;
     public int Money;
-    public StageData(int _id, int _xSize, int _ySize, float _time, int _hp, int _money)
+    public StageData(int _id, int _endX, int _endY, float _time, int _hp, int _money)
     {
         StageID = _id;
-        XSize = _xSize;
-        YSize = _ySize;
+        EndX = _endX;
+        EndY = _endY;
         Time = _time;
         HP = _hp;
         Money = _money ;
@@ -36,7 +36,7 @@ public class EnemyData
     public float HP;
     public string EnemyName;
     public int Damage;
-
+    public int Money;
     public EnemyData(EnemyData _enemyData) 
     {
         EnemyID = _enemyData.EnemyID;
@@ -44,15 +44,17 @@ public class EnemyData
         HP = _enemyData.HP;
         EnemyName = _enemyData.EnemyName;
         Damage = _enemyData.Damage;
+        Money = _enemyData.Money;
     }
 
-    public EnemyData(int _id, float _speed, float _hp, string _name, int _damage)
+    public EnemyData(int _id, float _speed, float _hp, string _name, int _damage, int _money)
     {
         EnemyID = _id;
         Speed = _speed;
         HP = _hp;
         EnemyName = _name;
         Damage = _damage;
+        Money = _money;
     }
 }
 #endregion

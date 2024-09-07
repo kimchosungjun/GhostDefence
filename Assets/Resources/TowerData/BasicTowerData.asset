@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   attackFrequency: 0.2
-  attackValue: 5
-  costMoney: 10
+  attackValue: 2
+  attackRange: 6
+  costMoney: 20
+  sellMoney: 10
+  upgradeLevel: 0
+  upgradeCost: 10
+  towerName: "\uD3EC\uD0D1"
+  towerInformation: "\uAE30\uBCF8\uC801\uC778 \uD3EC\uD0D1\uC774\uB2E4. \uB2E8\uC77C
+    \uC801\uC744 \uD5A5\uD574 \uACF5\uACA9\uD55C\uB2E4."

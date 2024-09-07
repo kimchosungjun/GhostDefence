@@ -92,7 +92,7 @@ public class LobbyUIController : MonoBehaviour
             enterSelectBtnAction();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && isPressSelectBtn)
+        if (Input.GetKeyDown(KeyCode.Escape) && isPressSelectBtn)
         {
             releaseSelectBtnAction();
         }

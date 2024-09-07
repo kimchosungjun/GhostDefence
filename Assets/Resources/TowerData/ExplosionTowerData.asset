@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: ExplosionTowerData
   m_EditorClassIdentifier: 
   attackType: 2
-  attackFrequency: 0.2
+  attackFrequency: 1
   attackValue: 5
-  costMoney: 10
+  attackRange: 8
+  costMoney: 50
+  sellMoney: 25
+  upgradeLevel: 0
+  upgradeCost: 10
+  towerName: "\uD3ED\uBC1C \uD3EC\uD0D1"
+  towerInformation: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uB290\uB9AC\uC9C0\uB9CC, \uD3ED\uBC1C\uD558\uB294
+    \uD0C4\uC744 \uB0A0\uB9B0\uB2E4."

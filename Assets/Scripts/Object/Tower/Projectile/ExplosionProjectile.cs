@@ -30,4 +30,13 @@ public class ExplosionProjectile : Projectile
         meshRenderer.enabled = true;
         coll.enabled = true;
     }
+
+    protected override void OnBecameInvisible()
+    {
+        if (!isCollideEnemy)
+        {
+            rigid.velocity = Vector3.zero;
+            gameObject.SetActive(false);
+        }
+    }
 }

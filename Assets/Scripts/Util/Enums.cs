@@ -32,7 +32,8 @@ public enum TowerAttackType
 {
     Normal,
     Slow,
-    Explosion
+    Explosion,
+    Maxi
 }
 
 public enum GameStageType
@@ -75,7 +76,8 @@ namespace TileEnums
     public enum TileKind
     {
         Grass,
-        Stone
+        Stone,
+        Water
     }
 }
 

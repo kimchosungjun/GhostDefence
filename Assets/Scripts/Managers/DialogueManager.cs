@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     Dialogue dialogue = null;
 
     LobbySetUI currentSettingUI = LobbySetUI.Middle; 
-    public LobbySetUI CurrentSettingUI { get { return currentSettingUI; } set { currentSettingUI = value; UIController.PDialogueUI.SetDialogueSpeed(currentSettingUI); } }
+    public LobbySetUI CurrentSettingUI { get { return currentSettingUI; } set { currentSettingUI = value; DispatchDialogueSpeed(); } }
 
     public void StartDialogue(int _stroyID)
     {
@@ -27,5 +27,12 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         dialogue = null;
+    }
+
+    public void DispatchDialogueSpeed()
+    {
+        if (LoadingManager.Instance.CurrentScene != SceneName.Game)
+            return;
+        UIController.PDialogueUI.SetDialogueSpeed(currentSettingUI);
     }
 }

@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class WideRangeTurret : Turret
 {
-    STowerData currentTowerData;
-    public STowerData CurrentTowerData { get { return currentTowerData; } }
-
     bool isNearEnemy = false;
 
     private void Awake()
     {
-        currentTowerData = new STowerData(towerData);
+        currentTowerData = new PTowerData(stowerData);
     }
 
     public void Update()
@@ -40,9 +37,9 @@ public class WideRangeTurret : Turret
             Projectile _projectile = GameManager.Instance.GameSystem.GameController.SummonProjectile(projectile);
             Vector3 _dir = Vector3.zero;
             _dir.x = Mathf.Cos(Mathf.Deg2Rad * _angle);
-            _dir.z = Mathf.Sign(Mathf.Deg2Rad * _angle);
+            _dir.z = Mathf.Sin(Mathf.Deg2Rad * _angle);
             _angle += 45f;
-            _projectile.Init(_dir, currentTowerData);
+            _projectile.WideInit(currentTowerData, launchPoint.position,_dir);
         }
     }
 

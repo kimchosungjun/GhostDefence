@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class TowerSlot : MonoBehaviour
 {
     [SerializeField , Tooltip("0:Not Lock, 1: Lock")] GameObject[] slots;
     [SerializeField] Button slotBtn;
     [SerializeField] Turret turret;
+    [SerializeField] TextMeshProUGUI costText;
     public Turret SlotTurret { get { if (turret == null) { return null; }  return turret; } }
 
     GameSceneController controller = null;
@@ -16,15 +17,18 @@ public class TowerSlot : MonoBehaviour
     {
         if (_isLock)
         {
+            slotBtn.interactable = false;
             slots[0].SetActive(false);
             slots[1].SetActive(true);
         }
         else
         {
+            slotBtn.interactable = true;
             slots[0].SetActive(true);
             slots[1].SetActive(false);
         }
 
+        costText.text = turret.ScriptableTowerData.costMoney.ToString();
         slotBtn.onClick.AddListener(() => PressTowerSlot());
         // 슬롯을 누르면 => 무슨 타워인지 알아야함 => 타워가 선택된 상황임 => 마우스를 타일 위에 가져다두면 건설 가능한지 확인함 => 취소하는 기능 필요
         // => 이거는 게임 컨트롤러에서
@@ -45,7 +49,7 @@ public class TowerSlot : MonoBehaviour
 
     public void PressTowerSlot()
     {
-        if (system.CanUse(turret.TowerData.costMoney))
+        if (system.CanUse(turret.ScriptableTowerData.costMoney))
         {
             controller.BuildTurret = turret;
         }

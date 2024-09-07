@@ -40,18 +40,9 @@ public class TowerUpgradeUI : MonoBehaviour
             // 공통 업데이트 부분
             texts[0].text = turret.TowerData.towerName;
             texts[1].text = turret.TowerData.towerInformation + $"\n 공격력: {turret.TowerData.attackValue}, 업그레이드 : {turret.TowerData.upgradeLevel}";
+            texts[2].text = turret.TowerData.upgradeCost.ToString();
             texts[3].text = turret.TowerData.sellMoney.ToString();
-
-            if (turret.TowerData.CanUpgradeLevel())
-            {
-                texts[2].text = turret.TowerData.costMoney.ToString();
-                towerDecideBtns[0].interactable = true;
-            }
-            else
-            {
-                texts[2].text = "X";
-                towerDecideBtns[0].interactable = false;
-            }
+            towerDecideBtns[0].interactable = true;
         }
     }
 
@@ -62,6 +53,9 @@ public class TowerUpgradeUI : MonoBehaviour
         {
             GameManager.Instance.GameSystem.UseMoney(turret.TowerData.upgradeCost);
             turret.TowerData.attackValue += turret.TowerData.GetUpgradeValue();
+            texts[1].text = turret.TowerData.towerInformation + $"\n 공격력: {turret.TowerData.attackValue}, 업그레이드 : {turret.TowerData.upgradeLevel}";
+            texts[2].text = turret.TowerData.upgradeCost.ToString();
+            texts[3].text = turret.TowerData.sellMoney.ToString();
         }
         else
         {

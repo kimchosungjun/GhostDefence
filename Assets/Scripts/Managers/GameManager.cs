@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
     private GridManager grid = new GridManager();
     public static GridManager Grid { get { return Instance.grid; } }
     #endregion
+
+    #region Mouse
+    [SerializeField] MousePointer mousePointer;
+    public MousePointer MouseCursor { get { if (mousePointer == null) mousePointer = GetComponentInChildren<MousePointer>(); return mousePointer; } }
+    #endregion
     /*********** 라이프 사이클 *************/
     void Awake()
     {

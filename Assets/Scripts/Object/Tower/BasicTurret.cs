@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BasicTurret : Turret
 {
-    STowerData currentTowerData ;
-    public STowerData CurrentTowerData { get { return currentTowerData; } }
-
     public Transform Target { get; set; } = null;
-
 
     private void Awake()
     {
-        currentTowerData = new STowerData(towerData);
+        currentTowerData = new PTowerData(stowerData);
     }
 
     public void Update()

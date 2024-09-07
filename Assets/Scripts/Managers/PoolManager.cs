@@ -9,6 +9,7 @@ public class PoolManager : MonoBehaviour
     Dictionary<int, GameObject> poolParentSet = new Dictionary<int, GameObject>();
 
     [SerializeField] GameObject[] projectileParents;
+    [SerializeField] Projectile[] projectiles;
     Dictionary<int, List<Projectile>> projectilePoolGroup = new Dictionary<int, List<Projectile>>();
 
     // 게임 씬 내에 있는 씬 스크립트에서 불러오기
@@ -39,6 +40,15 @@ public class PoolManager : MonoBehaviour
                 _enemyMover.gameObject.SetActive(false);
             }
             enemyPoolGroup.Add(_enemyDatas[idx].EnemyID, _enemyMoverSet);
+        }
+        #endregion
+
+        #region Projectile
+        int _projectileCnt = (int)TowerAttackType.Maxi;
+        for(int i=0; i<_projectileCnt; i++)
+        {
+            List<Projectile> _projectileGroup = new List<Projectile>();
+            projectilePoolGroup.Add(i, _projectileGroup);
         }
         #endregion
     }
@@ -73,8 +83,9 @@ public class PoolManager : MonoBehaviour
         int _id = (int)_projectile.AttackType;
         if (!projectilePoolGroup.ContainsKey(_id))
         {
-            Debug.LogError("해당 총알 정보는 해당 스테이지에 없습니다!");
+            Debug.Log("해당 총알의 정보가 없습니다.");
             return null;
+        
         }
 
         int _projectileCnt = projectilePoolGroup[_id].Count;
@@ -113,6 +124,15 @@ public class PoolManager : MonoBehaviour
     public void ClearAllEnemy()
     {
         // 불 타 사라지는 셰이더 효과 주면서 비활성화 시키기
-
+        List<int>_keys = new List<int>(enemyPoolGroup.Keys);
+        int _enemyTypeCnt = _keys.Count;
+        for (int i=0; i<_enemyTypeCnt; i++)
+        {
+            int _groupCnt = enemyPoolGroup[_keys[i]].Count;
+            for(int k=0; k<_groupCnt; k++)
+            {
+                enemyPoolGroup[_keys[i]][k].gameObject.SetActive(false); 
+            }
+        }
     }
 }

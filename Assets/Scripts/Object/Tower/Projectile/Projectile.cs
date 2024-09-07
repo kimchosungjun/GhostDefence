@@ -7,12 +7,13 @@ public class Projectile : MonoBehaviour
     protected Rigidbody rigid;
     protected bool isCollideEnemy = false;
 
-    protected STowerData towerData = null;
+    protected PTowerData towerData = null;
     [SerializeField] protected float projectileSpeed;
     [SerializeField] TowerAttackType attackType;
     public TowerAttackType AttackType { get { return attackType; } }
-    public virtual void Init(Vector3 _launchPoint, Vector3 _destPoint, STowerData _towerData)
+    public virtual void Init(Vector3 _launchPoint, Vector3 _destPoint, PTowerData _towerData)
     {
+        transform.position = _launchPoint;
         towerData = _towerData;
         isCollideEnemy = false;
 
@@ -29,8 +30,16 @@ public class Projectile : MonoBehaviour
         rigid.AddForce(_velocity, ForceMode.Impulse);
     }
 
-    public void Init(Vector3 _direction, STowerData _towerData)
+    /// <summary>
+    /// Use For Wide Range Turret
+    /// </summary>
+    /// <param name="_towerData"></param>
+    /// <param name="_launchPoint"></param>
+    /// <param name="_direction"></param>
+    public void WideInit(PTowerData _towerData, Vector3 _launchPoint, Vector3 _direction)
     {
+        transform.position = _launchPoint;
+
         towerData = _towerData;
         isCollideEnemy = false;
 

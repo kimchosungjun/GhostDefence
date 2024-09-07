@@ -222,7 +222,7 @@ Transform:
   - {fileID: 8548345562214924378}
   - {fileID: 3581766047721212976}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2205247292173144298
 BoxCollider:
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 3581766047721212976}
   headTf: {fileID: 7094271312961326181}
-  towerData: {fileID: 11400000, guid: 453912c219a1d354a815d79f584b100e, type: 2}
+  stowerData: {fileID: 11400000, guid: 453912c219a1d354a815d79f584b100e, type: 2}
   projectile: {fileID: 8680516409064845590, guid: 7155b22c5cacf084ba17ab1b0a8eb5b8, type: 3}
 --- !u!1 &5348591493782586999
 GameObject:

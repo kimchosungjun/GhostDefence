@@ -16,12 +16,19 @@ public class GameSceneUIController : MonoBehaviour
         PTutorial.Init();
         pauseUI.Init(this);
         towerSetUI.Init();
+        towerUpgradeUI.Init();
     }
 
     void Update()
     {
         if(!isPause)
             dialogueUI.DialogueUpdate();
+
+        if (isFollowCursor && !isPause)
+        {
+            Vector2 mousePosition = Input.mousePosition;
+            indicateBuildTransform.position = mousePosition;
+        }
     }
 
     #region Block UI
@@ -98,16 +105,6 @@ public class GameSceneUIController : MonoBehaviour
     #region Game End
     [SerializeField] GameEndUI endUI;
     public GameEndUI EndUI { get { return endUI; } }
-    public void WinGame()
-    {
-        endUI.WinGame();
-    }
-
-    public void LoseGame()
-    {
-        endUI.LoseGame();
-    }
-
     #endregion
 
     #region Dialogue
@@ -128,5 +125,16 @@ public class GameSceneUIController : MonoBehaviour
     #region TowerUpgradeUI
     [SerializeField] TowerUpgradeUI towerUpgradeUI;
     public TowerUpgradeUI TowerUpgrade { get { return towerUpgradeUI; } }
+    #endregion
+
+    #region TowerMouse
+    bool isFollowCursor =false;
+    [SerializeField] RectTransform indicateBuildTransform;
+
+    public void IndicateBuildCursor(bool _isOn)
+    {
+        isFollowCursor = _isOn;
+        indicateBuildTransform.gameObject.SetActive(_isOn);
+    }
     #endregion
 }

@@ -106,7 +106,6 @@ public class EnemyMover : MonoBehaviour
         enemyFeature.Dissolve();
     }
 
-
     #region Check Current Under Tile : Recalculate Path
     [Header("Tile RayCast")]
     [SerializeField, Range(3f, 5f)] float detectTileDistance =4f;

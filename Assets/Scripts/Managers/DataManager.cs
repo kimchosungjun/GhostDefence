@@ -9,7 +9,7 @@ public class DataManager : MonoBehaviour
 {
     /*************URL************************/ /* Edit 전까지만 복사*/
     const string StageURL = "https://docs.google.com/spreadsheets/d/1v1GiLP9SS7OLewQLneGzZGmZh3hSmDzM9eipHIP1bis/export?format=tsv&range=A2:F";
-    const string EnemyURL = "https://docs.google.com/spreadsheets/d/1sb_ePlJwgrWbd4G0mgp2Tw5Np7IMCc8_N2oATSjsXt0/export?format=tsv&range=A2:E";
+    const string EnemyURL = "https://docs.google.com/spreadsheets/d/1sb_ePlJwgrWbd4G0mgp2Tw5Np7IMCc8_N2oATSjsXt0/export?format=tsv&range=A2:F";
     const string summonEnemyDataName = "summonEnemyData";
     const string dialogueDataName = "dialogueData";
     string[] playerDataName = { "/Player0.json", "/Player1.json", "/Player2.json" };
@@ -85,7 +85,7 @@ public class DataManager : MonoBehaviour
         int dataSize = _dataLines[0].Split('\t').Length;
         for(int idx=0; idx<lineSize; idx++)
         {
-            // StageID / XSize / YSize / Time	/ HP	/ Money
+            // StageID / EndX / EndY / Time	/ HP	/ Money
             string[] _divideDatas = _dataLines[idx].Split('\t');
             for(int k=0; k<dataSize; k++)
             {
@@ -94,12 +94,12 @@ public class DataManager : MonoBehaviour
                 if (stageDictionary.ContainsKey(_id))
                     continue;
 
-                int _xSize = int.Parse(_divideDatas[1]);
-                int _ySize = int.Parse(_divideDatas[2]);
+                int _endX = int.Parse(_divideDatas[1]);
+                int _endY = int.Parse(_divideDatas[2]);
                 float _time = float.Parse(_divideDatas[3]);
                 int _hp = int.Parse(_divideDatas[4]);
                 int _money = int.Parse(_divideDatas[5]);
-                StageData _stageData = new StageData(_id, _xSize, _ySize, _time, _hp, _money);
+                StageData _stageData = new StageData(_id, _endX, _endY, _time, _hp, _money);
                 stageDictionary.Add(_id, _stageData);
             }
         }
@@ -134,7 +134,8 @@ public class DataManager : MonoBehaviour
                 float _hp = float.Parse(_divideDatas[2]);
                 string _name = _divideDatas[3];
                 int _damage = int.Parse(_divideDatas[4]);
-                EnemyData _enemyData = new EnemyData(_id, _speed, _hp, _name,_damage);
+                int _money = int.Parse(_divideDatas[5]);
+                EnemyData _enemyData = new EnemyData(_id, _speed, _hp, _name,_damage,_money);
                 enemyDictionary.Add(_id, _enemyData);
             }
         }

@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameSceneController : BaseSceneController
 {
+    [SerializeField] SelectTile selectTile;
+    [SerializeField] Transform turretGroup;
+
     int tileLayer = 1<<(int)DefineLayer.Tile;
+    int turretLayer = 1 << (int)DefineLayer.Turret;
     [SerializeField] PoolManager poolManager;
     [SerializeField] CameraBounds camBounds;
     StageData stageData;
@@ -38,9 +43,6 @@ public class GameSceneController : BaseSceneController
             _enemyDataList.Add(_enemyData);
         }
         poolManager.Init(_enemyDataList);
-
-        // 타일 정보 받아오기
-        LinkNodes();
     }
     #endregion
 
@@ -48,19 +50,8 @@ public class GameSceneController : BaseSceneController
     private void Start()
     {
         // 대화 시작  
-        GameManager.Instance.PDialogue.StartDialogue(Data.StageID);
-    }
-
-    public void LinkNodes()
-    {
-        GameObject _map = GameObject.FindWithTag("Map");
-        TileNode[] _tileNodes = _map.GetComponentsInChildren<TileNode>();
-
-        int _tileCnt = _tileNodes.Length;
-        for (int i = 0; i < _tileCnt; i++)
-        {
-            tileGroup.Add(_tileNodes[i].name, _tileNodes[i]);
-        }
+        if(GameManager.Instance.Data.CurrentStageData.StageID >= GameManager.Instance.Data.CurrentPlayerData.clearStage)
+            GameManager.Instance.PDialogue.StartDialogue(Data.StageID);
     }
     #endregion
 
@@ -69,44 +60,111 @@ public class GameSceneController : BaseSceneController
     {
         #region 터렛 배치
         // 땅 클릭하면 업그레이드 초기화
-        if (BuildTurret != null)
-        {
+        if (isBuildState)
+        { 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
             bool rayCastHit = Physics.Raycast(ray, out rayHit, 100f, tileLayer);
-            if (rayCastHit)
-                GetNode(rayHit.collider);
+            if (!rayCastHit)
+                return;
+
+            TileNode _tileNode = GameManager.Grid.GetTileNode(rayHit.collider.name);
+            if (_tileNode == null)
+                return;
+
+            bool _isOnTile = _tileNode.SenseOnTile();
+            selectTile.UpdateTile(_tileNode.BuildPosition, !_isOnTile);
+
+            // 터렛을 지으면 => SelectTurret 초기화 => BuildTurret은 초기화할지 고민(한번에 여러개 만들 수 있게 할까 고민중)
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!_isOnTile)
+                {
+                    // 타워 건설 후, 돈이 없다면 취소
+                    CreateTurret(_tileNode.BuildPosition);
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                // 취소
+                BuildTurret = null;
+            }
+        }
+        else
+        {
+            // 터렛을 누르면 옆의 업그레이드 창이 자동으로 초기화됨
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHit;
+                bool rayCastHit = Physics.Raycast(ray, out rayHit, 100f, turretLayer);
+
+                if (rayCastHit)
+                    SelectTurret = rayHit.collider.GetComponent<Turret>();
+                else
+                    SelectTurret = null;
+            }
         }
         #endregion
     }
 
-    // TowerUpgrade에 정보전달, 설치와 동시에 업그레이드 타워로 지정
-    public Turret BuildTurret { get; set; } = null;
-
-    public Turret SelectTurret { get; set; } = null;
-    #endregion
-
-    public bool IsSelectTower { get; set; } = false;
-    public TileNode CurrentNode { get; set; } = null;
-    Dictionary<string, TileNode> tileGroup = new Dictionary<string, TileNode>();
-
-    public void GetNode(Collider _collider)
+    public void CreateTurret(Vector3 _createPos)
     {
-        if (tileGroup.ContainsKey(_collider.name))
+        Instantiate(BuildTurret.gameObject,_createPos,Quaternion.identity,turretGroup);
+        GameManager.Instance.GameSystem.UseMoney(BuildTurret.ScriptableTowerData.costMoney);
+        if (!GameManager.Instance.GameSystem.CanUse(BuildTurret.ScriptableTowerData.costMoney))
         {
-            TileNode _selectNode = tileGroup[_collider.name];
-            if (_selectNode == CurrentNode)
-                CurrentNode = null;
-            else
-                CurrentNode = _selectNode;
+            BuildTurret = null;
+        }
+    }
+
+    // TowerUpgrade에 정보전달, 설치와 동시에 업그레이드 타워로 지정
+    bool isBuildState = false;
+    private Turret buildTurret = null;
+    public Turret BuildTurret { get { return buildTurret; } set { buildTurret = value; ChangeBuildTurret(); } }
+
+    public void ChangeBuildTurret()
+    {
+        if (buildTurret == null)
+        {
+            isBuildState = false;
+            // 마우스 커서 이미지 변경
+            GameManager.Instance.MouseCursor.IsBuildCursor = false;
+            // 지을 수 있는지 확인시키는 UI OFF
+            uiController.IndicateBuildCursor(false);
+            selectTile.gameObject.SetActive(false);
         }
         else
         {
-            CurrentNode = null;
+            isBuildState = true;
+            // 마우스 커서 이미지 변경
+            GameManager.Instance.MouseCursor.IsBuildCursor = true;
+            // 터렛 지을 수 있는지 확인하게 해주는 UI가 따라다님
+            uiController.IndicateBuildCursor(true);
+            SelectTurret = null;
+            selectTile.gameObject.SetActive(true);
         }
     }
-    #region 타일 검색
-    
+
+    private Turret selectTurret = null;
+    public Turret SelectTurret { get { return selectTurret; }set { ChangeSelectTurret(value); selectTurret = value; } } 
+
+    public void ChangeSelectTurret(Turret _selectTurret)
+    {
+        if (_selectTurret == null)
+        {
+            uiController.TowerUpgrade.InitialText();
+        }
+        else
+        {
+            if (_selectTurret == selectTurret)
+                return;
+            uiController.TowerUpgrade.UpdateTower(_selectTurret);
+        }
+    }
     #endregion
 
     #region 메서드

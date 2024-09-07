@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: WideRangeTowerData
   m_EditorClassIdentifier: 
   attackType: 1
-  attackFrequency: 0.2
-  attackValue: 5
-  costMoney: 10
+  attackFrequency: 0.6
+  attackValue: 1.5
+  attackRange: 5
+  costMoney: 30
+  sellMoney: 15
+  upgradeLevel: 0
+  upgradeCost: 10
+  towerName: "\uAD11\uC5ED \uD3EC\uD0D1"
+  towerInformation: "\uC0AC\uBC29\uC73C\uB85C \uB290\uB824\uC9C0\uB294 \uD0C4\uC744
+    \uBC1C\uC0AC\uD55C\uB2E4."

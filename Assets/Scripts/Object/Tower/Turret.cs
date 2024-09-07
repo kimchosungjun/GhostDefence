@@ -7,10 +7,12 @@ public abstract class Turret : MonoBehaviour
     protected int enemyLayer = 1<<(int)DefineLayer.Enemy;
     [SerializeField] protected Transform launchPoint; 
     [SerializeField] protected Transform headTf;
-    [SerializeField] protected STowerData towerData;
     [SerializeField] protected Projectile projectile;
+    [SerializeField] protected STowerData stowerData;
+    public STowerData ScriptableTowerData { get { return stowerData; } }
 
-    public STowerData TowerData { get { return towerData; } }
+    protected PTowerData currentTowerData;
+    public PTowerData TowerData { get { return currentTowerData; } }
 
     protected abstract void DetectTarget();
 

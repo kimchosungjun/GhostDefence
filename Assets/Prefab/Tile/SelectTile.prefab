@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1193976920724371819}
   - component: {fileID: 7553969332903912095}
   - component: {fileID: 6568799823967044644}
+  - component: {fileID: 1185061678777480337}
   m_Layer: 0
-  m_Name: CanSelect
+  m_Name: SelectTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7553969332903912095
 MeshFilter:
@@ -83,3 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1185061678777480337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365863013994258573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77bb04dcbd8822459249bbc75311655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRend: {fileID: 6568799823967044644}
+  mats:
+  - {fileID: 2100000, guid: ebb1758177f2f6d4d8852171917b6d81, type: 2}
+  - {fileID: 2100000, guid: 8b284aa17b4129f439a4c56890989fe7, type: 2}

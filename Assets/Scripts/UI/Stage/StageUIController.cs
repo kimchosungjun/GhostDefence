@@ -18,6 +18,7 @@ public class StageUIController : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.Data.CurrentStageData = null;
+        GameManager.Grid.AllClearData();
 
         if (backButton != null)
             backButton.onClick.AddListener(() => { LoadingManager.Instance.CallStartLoading(SceneName.Lobby); 

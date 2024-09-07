@@ -55,19 +55,25 @@ public class EnemyFeature : MonoBehaviour
             return;
         enemyHP -= _damage;
         if (enemyHP <= 0)
-            Dissolve();
+            Death();
         else
             HitEffect(_attackType);
     }
 
     bool isDead = false;
+    public void Death()
+    {
+        isDead = true;
+        GameManager.Instance.GameSystem.EarnMoney(enemyData.Money);
+        Dissolve();
+    }
+
     public virtual void Dissolve()
     {
         coll.enabled = false;
-        isDead = true;
         isSlow = false;
         enemyMover.Speed = enemyData.Speed;
-        StartCoroutine(DissolveEffect());
+        StartCoroutine(DissolveEffect());   
     }
 
     IEnumerator DissolveEffect()
@@ -170,9 +176,12 @@ public class EnemyFeature : MonoBehaviour
 
     public virtual void ResetStat()
     {
+        
         EnemyData originalData = GameManager.Instance.Data.GetEnemyData(enemyData.EnemyID);
         enemyData.Damage = originalData.Damage;
         enemyData.HP = originalData.HP;
         enemyData.Speed = originalData.Speed;
+        enemyHP = enemyData.HP;
+        isDead = false;
     }
 }
