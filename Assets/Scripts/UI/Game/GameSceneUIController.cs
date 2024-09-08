@@ -12,7 +12,9 @@ public class GameSceneUIController : MonoBehaviour
         startBtn.onClick.AddListener(() => StartGame());
         fastBtn.onClick.AddListener(() => FastGame());
         startBtn.interactable = true;
-        fastBtn.interactable = false;
+        fastBtn.interactable = false; 
+        startImgae.color = activeColor;
+        fastImage.color = inactiveColor;
         pauseBtn.onClick.AddListener(() => PauseGame());
         pauseExitBtn.onClick.AddListener(() => ResumeGame());
         #endregion
@@ -82,9 +84,13 @@ public class GameSceneUIController : MonoBehaviour
     #region Game Control
     bool isStartGame = false;
     [Header("게임 시작")]
+    [SerializeField] Color activeColor;
+    [SerializeField] Color inactiveColor;
     [SerializeField] TextMeshProUGUI fastText;
     [SerializeField] Button startBtn;
     [SerializeField] Button fastBtn;
+    [SerializeField] Image startImgae;
+    [SerializeField] Image fastImage;
     public void StartGame()
     {
         if (isStartGame == false)
@@ -97,6 +103,8 @@ public class GameSceneUIController : MonoBehaviour
         fastText.text = "X1";
         fastBtn.interactable = true;
         startBtn.interactable = false;
+        startImgae.color = inactiveColor;
+        fastImage.color = activeColor;
     }
 
     public void FastGame()
@@ -105,6 +113,8 @@ public class GameSceneUIController : MonoBehaviour
         fastText.text = "X2";
         fastBtn.interactable = false;
         startBtn.interactable = true;
+        startImgae.color = activeColor;
+        fastImage.color = inactiveColor;
     }
 
     [Header("게임 정지")]

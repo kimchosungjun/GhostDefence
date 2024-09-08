@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WideRangeTowerData
   m_EditorClassIdentifier: 
   attackType: 1
-  attackFrequency: 0.6
-  attackValue: 1.5
+  attackFrequency: 1
+  attackValue: 1
   attackRange: 5
   costMoney: 30
   sellMoney: 15

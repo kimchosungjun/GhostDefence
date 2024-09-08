@@ -131,9 +131,13 @@ MonoBehaviour:
   hpText: {fileID: 6622276926979713079}
   energyText: {fileID: 1797996707152858701}
   timerText: {fileID: 3476085899748525392}
+  activeColor: {r: 1, g: 1, b: 1, a: 1}
+  inactiveColor: {r: 0.43529412, g: 0.43529412, b: 0.43529412, a: 1}
   fastText: {fileID: 5314944346899377104}
   startBtn: {fileID: 3459168344402260994}
   fastBtn: {fileID: 1255830010475484679}
+  startImgae: {fileID: 3278302612490212651}
+  fastImage: {fileID: 5386771061795494604}
   pauseBtn: {fileID: 8143839662217113673}
   pauseExitBtn: {fileID: 5026449904422886209}
   pauseUI: {fileID: 4514555870147339913}
@@ -7013,11 +7017,11 @@ RectTransform:
   m_Father: {fileID: 2506673954204862315}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 410, y: -520}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -500, y: 380}
   m_SizeDelta: {x: 128, y: 180}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2056666934255054976
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9783,7 +9787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11784,7 +11788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Any Key..
+  m_text: "\uC544\uBB34 \uACF3\uC774\uB098 \uD074\uB9AD\uD558\uC138\uC694"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6cf459df1af2e4f40b55d705b111fd77, type: 2}
   m_sharedMaterial: {fileID: 3831794103565230699, guid: 6cf459df1af2e4f40b55d705b111fd77, type: 2}
@@ -13490,7 +13494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

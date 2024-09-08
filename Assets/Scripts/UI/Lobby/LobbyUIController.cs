@@ -27,8 +27,8 @@ public class LobbyUIController : MonoBehaviour
     [SerializeField, Tooltip("Start, Setting, Exit")] LobbyUI[] lobbyUIGroup;
     [SerializeField] LobbyStartUI startUI =null;
 
-    #region Awake
-    private void Awake()
+    #region Start
+    private void Start()
     {
         Link();
         Init();

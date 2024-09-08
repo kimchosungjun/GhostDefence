@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExplosionTowerData
   m_EditorClassIdentifier: 
   attackType: 2
-  attackFrequency: 1
+  attackFrequency: 2
   attackValue: 5
   attackRange: 8
   costMoney: 50

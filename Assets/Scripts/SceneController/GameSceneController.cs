@@ -8,7 +8,7 @@ public class GameSceneController : BaseSceneController
     [SerializeField] SelectTile selectTile;
     [SerializeField] Transform turretGroup;
 
-    int tileLayer = 1<<(int)DefineLayer.Tile;
+    int tileLayer = 1 << (int)DefineLayer.Tile;
     int turretLayer = 1 << (int)DefineLayer.Turret;
     [SerializeField] PoolManager poolManager;
     public PoolManager Pool { get { return poolManager; } }
@@ -20,7 +20,7 @@ public class GameSceneController : BaseSceneController
     [SerializeField] GameSceneUIController uiController;
     public GameSceneUIController UIController { get { return uiController; } }
 
-    Camera mainCam =null;
+    Camera mainCam = null;
 
     #region 초기화
     private void Awake()
@@ -53,7 +53,7 @@ public class GameSceneController : BaseSceneController
         // 대화 시작  
         if (GameManager.Instance.Data.CurrentPlayerData.isClearAll)
             return;
-        if(GameManager.Instance.Data.CurrentStageData.StageID >= GameManager.Instance.Data.CurrentPlayerData.clearStage)
+        if (GameManager.Instance.Data.CurrentStageData.StageID >= GameManager.Instance.Data.CurrentPlayerData.clearStage)
             GameManager.Instance.PDialogue.StartDialogue(Data.StageID);
     }
     #endregion
@@ -120,7 +120,7 @@ public class GameSceneController : BaseSceneController
 
     public void CreateTurret(Vector3 _createPos, TileNode _tileNode)
     {
-        GameObject _newTurretObject =Instantiate(BuildTurret.gameObject,_createPos,Quaternion.identity,turretGroup);
+        GameObject _newTurretObject = Instantiate(BuildTurret.gameObject, _createPos, Quaternion.identity, turretGroup);
         Turret _newTurret = _newTurretObject.GetComponent<Turret>();
         _newTurret.UnderTurretTileNode = _tileNode;
         GameManager.Instance.GameSystem.UseMoney(BuildTurret.ScriptableTowerData.costMoney);
@@ -159,7 +159,7 @@ public class GameSceneController : BaseSceneController
     }
 
     private Turret selectTurret = null;
-    public Turret SelectTurret { get { return selectTurret; }set { ChangeSelectTurret(value); selectTurret = value; } } 
+    public Turret SelectTurret { get { return selectTurret; } set { ChangeSelectTurret(value); selectTurret = value; } }
 
     public void ChangeSelectTurret(Turret _selectTurret)
     {
@@ -190,7 +190,7 @@ public class GameSceneController : BaseSceneController
         else
             uiController.EndUI.LoseGame();
         poolManager.ClearAllEnemy();
-       
+
     }
 
     public Projectile SummonProjectile(Projectile _projectile)
@@ -199,5 +199,14 @@ public class GameSceneController : BaseSceneController
     }
     #endregion
 
+    [Header("Skybox")]
+    [SerializeField] Material nightSkyBox;
 
+    public void ChangeNight()
+    {
+        if (nightSkyBox != null)
+        {
+            RenderSettings.skybox = nightSkyBox;
+        }
+    }
 }

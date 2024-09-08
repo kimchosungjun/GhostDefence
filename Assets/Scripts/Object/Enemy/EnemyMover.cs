@@ -81,7 +81,6 @@ public class EnemyMover : MonoBehaviour
         {
             Vector3 startPosition = transform.position;
             Vector3 endPosition = path[idx].coordinates;
-
             #region Immediately Rotate
             Vector3 direction = path[idx].coordinates - transform.position;
             transform.rotation = Quaternion.LookRotation(direction);

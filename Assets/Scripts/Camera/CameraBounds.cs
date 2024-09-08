@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraBounds : MonoBehaviour
 {
-    [SerializeField] float yDelta = 10;  // 카메라의 고정된 높이
+    float yDelta = 18f;  // 카메라의 고정된 높이
     Camera mainCam;
     Bounds mapBounds;
     [SerializeField] BoxCollider boxColl;
@@ -16,13 +16,14 @@ public class CameraBounds : MonoBehaviour
         if (boxColl == null)
             boxColl = GetComponent<BoxCollider>();
         mapBounds = boxColl.bounds;
-        SetCamerBounds();
+        SetCameraBounds();
     }
 
     float distance;
     float frustumHeight;
-     float frustumWidth;
-    private void SetCamerBounds()
+    float frustumWidth;
+
+    private void SetCameraBounds()
     {
         distance = mainCam.transform.position.y - mapBounds.min.y;  // 카메라와 맵 바닥 사이의 거리
         frustumHeight = 2.0f * distance * Mathf.Tan(mainCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
@@ -35,27 +36,24 @@ public class CameraBounds : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            newPosition += Vector3.forward * Time.deltaTime * 5.0f; // 속도 조정
+            newPosition += Vector3.forward * 0.05f;// 속도 조정
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            newPosition += Vector3.left * Time.deltaTime * 5.0f;
+            newPosition += Vector3.left * 0.05f;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            newPosition += Vector3.right * Time.deltaTime * 5.0f;
+            newPosition += Vector3.right * 0.05f;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            newPosition += Vector3.back * Time.deltaTime * 5.0f;
+            newPosition += Vector3.back *0.05f;
         }
 
-        // 카메라의 뷰포트 경계를 계산
-     
-
         // 카메라 위치를 경계 내로 제한
-        newPosition.x = Mathf.Clamp(newPosition.x, mapBounds.min.x - frustumWidth/2, mapBounds.max.x + frustumWidth/2);
-        newPosition.z = Mathf.Clamp(newPosition.z, mapBounds.min.z - frustumHeight/2, mapBounds.max.z + frustumHeight/2);
+        newPosition.x = Mathf.Clamp(newPosition.x, mapBounds.min.x + frustumWidth / 2, mapBounds.max.x - frustumWidth / 2);
+        newPosition.z = Mathf.Clamp(newPosition.z, mapBounds.min.z + frustumHeight / 2, mapBounds.max.z - frustumHeight / 2);
 
         // yDelta를 사용하여 y 값을 고정
         newPosition.y = yDelta;

@@ -125,6 +125,7 @@ public class GameSystemManager : MonoBehaviour
 
     public void StartGame()
     {
+        GameController.ChangeNight();
         StartCoroutine(Timer());
     }
 
