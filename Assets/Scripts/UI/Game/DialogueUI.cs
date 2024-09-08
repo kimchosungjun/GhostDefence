@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UIEnums;
-
+using UnityEngine.UI;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField, Tooltip("0:Name, 1:Speaker")] TextMeshProUGUI[] dialogueTexts;
     [SerializeField, Tooltip("0:TextBox, 1:SpaceBar")] GameObject[] dialogueObjects;
+    [SerializeField] Image characterImage;
+    [SerializeField, Tooltip("Soldier 0,1,2")] Sprite[] sprites;
     float dialogueSpeed;
 
     bool isEndLine = false;
@@ -62,7 +64,7 @@ public class DialogueUI : MonoBehaviour
         if (_storyLine[0].Equals('@'))
         {
             // 이벤트 발생
-            GameManager.Instance.PDialogue.PDialogueEvent.DispatchDialogueEvent(_storyLine);
+            GameManager.Instance.PDialogue.PDialogueEvent.DispatchDialogueEvent(_storyLine,this);
             dialogueIndex += 1;
             CheckNextDialogue();
             yield break;
@@ -126,6 +128,14 @@ public class DialogueUI : MonoBehaviour
         {
             StartCoroutine(ShowDialogue(dialogue.storyLines[dialogueIndex]));
         }
+    }
+    #endregion
+
+    #region Dialogue Event
+    public void ChangeImage(int _index)
+    {
+        characterImage.sprite = sprites[_index];
+        characterImage.gameObject.SetActive(true);
     }
     #endregion
 }

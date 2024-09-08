@@ -24,6 +24,7 @@ public class GameSceneUIController : MonoBehaviour
         pauseUI.Init(this);
         towerSetUI.Init();
         towerUpgradeUI.Init();
+        gameEndingUI.Init();
         #endregion
     }
 
@@ -163,5 +164,10 @@ public class GameSceneUIController : MonoBehaviour
         isFollowCursor = _isOn;
         indicateBuildTransform.gameObject.SetActive(_isOn);
     }
+    #endregion
+
+    #region GameEnding
+    [SerializeField] GameEndingUI gameEndingUI;
+    public GameEndingUI GameEnding { get { return gameEndingUI; } }
     #endregion
 }

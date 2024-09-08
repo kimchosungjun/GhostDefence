@@ -105,6 +105,9 @@ public class NodeData
             case TileKind.StartEnd:
                 canPlace = false;
                 break;
+            case TileKind.Block:
+                canPlace = false;
+                break;
         }
 
         // Not Receive Parameter
@@ -154,6 +157,7 @@ public class PlayerData
     public int nameIndex;
 
     public bool isClearAll = false;
+    public bool isShowEnding = false;
     public const int maxClearStage = 6;
     public bool[] isSeenDialogue;
     public PlayerData()

@@ -71,7 +71,8 @@ namespace TileEnums
         Grass,
         Stone,
         Water,
-        StartEnd
+        StartEnd,
+        Block
     }
 }
 

@@ -42,7 +42,8 @@
     {
       "stageID": 3,
       "enemyID": [
-        "0"
+        "0",
+        "1"
       ],
       "summonStartTime": [
         "0",

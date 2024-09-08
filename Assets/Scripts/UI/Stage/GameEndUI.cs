@@ -34,8 +34,26 @@ public class GameEndUI : MonoBehaviour
 
     public void WinGame()
     {
-        endUIObject[0].SetActive(true);
         GameManager.Instance.Data.CurrentPlayerData.WinStage(GameManager.Instance.Data.CurrentStageData.StageID);
+        if (GameManager.Instance.Data.CurrentPlayerData.isClearAll)
+        {
+            // 전부 클리어했을 때, 엔딩
+            if (GameManager.Instance.Data.CurrentPlayerData.isShowEnding)
+            {
+                // 이미 엔딩을 본 상태
+                endUIObject[0].SetActive(true);
+            }
+            else
+            {
+                // 엔딩을 보지 못한 상태
+                GameManager.Instance.GameSystem.GameController.UIController.GameEnding.EndingStart();  
+            }
+        }
+        else
+        {
+            // 전부 클리어하지 못함
+            endUIObject[0].SetActive(true);
+        }
     }
 
     public void LoseGame()

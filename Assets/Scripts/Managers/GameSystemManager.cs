@@ -90,6 +90,8 @@ public class GameSystemManager : MonoBehaviour
     public void GameOver()
     {
         // 게임 오버 UI 적용
+        StopAllCoroutines();
+        GameController.BuildTurret = null;
         gameSceneController.EndGame(false);
     }
     #endregion
@@ -178,6 +180,7 @@ public class GameSystemManager : MonoBehaviour
 
     public void WinGame()
     {
+        GameController.BuildTurret = null;
         gameSceneController.EndGame(true);
     }
     public IEnumerator SummonCommandCor(int _index, float _waitTime)

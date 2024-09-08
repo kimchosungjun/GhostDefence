@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class DialogueEvent : MonoBehaviour
 {
-    public void DispatchDialogueEvent(string _line)
+    DialogueUI dialogueUI = null;
+
+    public void DispatchDialogueEvent(string _line, DialogueUI _dialogueUI)
     {
+        if (dialogueUI == null)
+            dialogueUI = _dialogueUI;
+
         int _lineCnt = _line.Length;
         string _functionName = "";
         List<string> _parameters = new List<string>();
@@ -53,6 +58,10 @@ public class DialogueEvent : MonoBehaviour
         {
             case "Tutorial":
                 GameManager.Instance.PDialogue.UIController.PTutorial.OperateTutorial();
+                break;
+            case "Character":
+                int _index = int.Parse(_parameters[0]);
+                dialogueUI.ChangeImage(_index);
                 break;
         }
     }

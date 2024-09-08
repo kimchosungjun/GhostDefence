@@ -114,7 +114,7 @@ public class EnemyMover : MonoBehaviour
     {
         StopAllCoroutines();
         enemyFeature.DisPatchGameEnd();
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     #region Check Current Under Tile : Recalculate Path

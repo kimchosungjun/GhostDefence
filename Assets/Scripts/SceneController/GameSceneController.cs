@@ -51,6 +51,8 @@ public class GameSceneController : BaseSceneController
     private void Start()
     {
         // 대화 시작  
+        if (GameManager.Instance.Data.CurrentPlayerData.isClearAll)
+            return;
         if(GameManager.Instance.Data.CurrentStageData.StageID >= GameManager.Instance.Data.CurrentPlayerData.clearStage)
             GameManager.Instance.PDialogue.StartDialogue(Data.StageID);
     }
@@ -62,7 +64,14 @@ public class GameSceneController : BaseSceneController
         #region 터렛 배치
         // 땅 클릭하면 업그레이드 초기화
         if (isBuildState)
-        { 
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                // 취소
+                BuildTurret = null;
+                return;
+            }
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
             bool rayCastHit = Physics.Raycast(ray, out rayHit, 100f, tileLayer);
@@ -86,11 +95,6 @@ public class GameSceneController : BaseSceneController
                     // 적들에게 다시 경로 탐색하도록 만듬
                     poolManager.AnnounceChangePath();
                 }
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                // 취소
-                BuildTurret = null;
             }
         }
         else
@@ -180,12 +184,13 @@ public class GameSceneController : BaseSceneController
 
     public void EndGame(bool _isWin)
     {
+        Time.timeScale = 0f;
         if (_isWin)
             uiController.EndUI.WinGame();
         else
             uiController.EndUI.LoseGame();
         poolManager.ClearAllEnemy();
-        Time.timeScale = 0f;
+       
     }
 
     public Projectile SummonProjectile(Projectile _projectile)
